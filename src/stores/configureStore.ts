@@ -1,17 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import rootSaga from "./rootSaga";
+import { loadState, saveState } from "./slice/globalRequest";
+import globalReducer from "./slice/globalSlice";
+import userReducer from "./slice/userSlice";
 import logger from "redux-logger";
-import { reducer } from "./reducer";
 
-// const sagaMiddleware = createSagaMiddleware();
+const preloadedState = loadState();
 
 const store = configureStore({
-  reducer,
+  reducer: {
+    global: globalReducer,
+    user: userReducer,
+  },
+  preloadedState,
   middleware: (gDM) => gDM().concat(logger),
-  // middleware: (gDM) => gDM().concat(sagaMiddleware),
 });
 
-// sagaMiddleware.run(rootSaga);
+store.subscribe(() => {
+  saveState({
+    global: store.getState().global,
+  });
+});
 
 export default store;
 

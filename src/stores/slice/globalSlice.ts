@@ -1,20 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import requestGetNews from "../../utils/request";
 
-// const handleFetchNews = createAsyncThunk(
-//   "news/handleFetchNews",
-//   async (query: string) => {
-//     const response = await requestGetNews(query);
-//     return response.data;
-//   }
-// );
+interface GlobalState {
+  darkMode: boolean | null;
+  showSidebar: boolean | null;
+}
+
+const initialState: GlobalState = {
+  darkMode: false,
+  showSidebar: true,
+};
 
 const globalSlice = createSlice({
   name: "global",
-  initialState: {
-    darkMode: false,
-    showSidebar: true,
-  },
+  initialState,
   reducers: {
     toggleDarkMode: (state, action) => {
       state.darkMode = action.payload;
@@ -23,9 +21,6 @@ const globalSlice = createSlice({
       state.showSidebar = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(handleFetchNews.fulfilled, (state, action) => {});
-  // },
 });
 
 export const { toggleDarkMode, toggleSidebar } = globalSlice.actions;
