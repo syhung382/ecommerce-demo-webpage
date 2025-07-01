@@ -45,6 +45,8 @@ const LoginPage = () => {
     if (!isValid) return;
 
     dispatch(handleLoginAsync(value));
+
+    navigate("/admin/dashboard");
   };
 
   useEffect(() => {
