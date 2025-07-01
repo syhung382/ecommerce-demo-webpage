@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { loadState, saveState } from "./slice/globalRequest";
 import globalReducer from "./slice/globalSlice";
 import userReducer from "./slice/userSlice";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 
 const preloadedState = loadState();
 
@@ -12,7 +12,7 @@ const store = configureStore({
     user: userReducer,
   },
   preloadedState,
-  middleware: (gDM) => gDM().concat(logger),
+  // middleware: (gDM) => gDM().concat(logger),
 });
 
 store.subscribe(() => {
