@@ -7,17 +7,16 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
   plugins: [react(), tailwindcss(), svgr()],
   server: {
-    port: 5173,
+    port: 5000,
     host: "localhost",
     strictPort: true,
     open: true,
-    // proxy: {
-    //   "/api": {
-    //     target: "http://localhost:5000",
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/api/, ""),
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "http://ecommerce-be-api.runasp.net",
+        changeOrigin: true,
+      },
+    },
   },
   // build: {
   //   outDir: "dist",

@@ -25,6 +25,7 @@ import {
 } from "../../components/dropdown";
 import { getListCategoryAsync } from "../../stores/handles";
 import { useAppDispatch } from "../../hooks/hook";
+import { toast } from "react-toastify";
 
 const schema = yup.object({
   title: yup
@@ -98,8 +99,15 @@ const CategoriesAdd = () => {
 
       try {
         const res = await dispatch(getListCategoryAsync(payload)).unwrap();
-        if (res && res.retCode === 0) {
-          setListItemDropdown(res.data.listData);
+        if (res) {
+          if (res.retCode === 0) {
+            setListItemDropdown(res.data.listData);
+            setLoading(false);
+          } else {
+            toast.error(res.retText);
+          }
+        } else {
+          console.log("error: ", res);
         }
       } catch (e) {
         console.log("error: ", e);
@@ -110,11 +118,6 @@ const CategoriesAdd = () => {
 
   useEffect(() => {
     document.title = "Quản trị | Thêm mới danh mục";
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 400);
-    return () => clearTimeout(timer);
   }, []);
 
   if (loading) return <LoadingComponent></LoadingComponent>;

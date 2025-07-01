@@ -41,12 +41,15 @@ const LoginPage = () => {
   );
   const navigate = useNavigate();
 
-  const handleLogin = (value: LoginReq) => {
+  const handleLogin = async (value: LoginReq) => {
     if (!isValid) return;
 
-    dispatch(handleLoginAsync(value));
-
-    navigate("/admin/dashboard");
+    try {
+      await dispatch(handleLoginAsync(value)).unwrap();
+      navigate("admin/dashboard");
+    } catch (error) {
+      console.error("❌ Login thất bại:", error);
+    }
   };
 
   useEffect(() => {
