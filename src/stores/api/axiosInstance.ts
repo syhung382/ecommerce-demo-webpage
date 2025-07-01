@@ -3,8 +3,11 @@ import { localStorageName } from "../../utils/constants";
 
 const getToken = () => localStorage.getItem(localStorageName.USERTOKEN);
 
+const proUrl = "http://ecommerce-be-api.runasp.net/api";
+// const devUrl = "https://localhost:44371/api";
+
 export const axiosInstance = axios.create({
-  baseURL: "https://localhost:44371/api",
+  baseURL: proUrl,
   headers: {
     "Content-Type": "application/json",
   },

@@ -18,10 +18,10 @@ const DashboardLayout = () => {
   return (
     <div className="min-h-screen flex flex-col overflow-hidden  text-gray-500 dark:text-gray-400">
       <DashboardSideBar></DashboardSideBar>
-      <main className="flex-1 mb-12 lg:mb-0 lg:ml-[290px] dark:bg-gray-900 bg-gray-100  relative">
+      <main className="flex-1 mb-12 lg:mb-0 lg:ml-[290px] dark:bg-gray-900 bg-gray-100 relative flex flex-col">
         <DashboardHeader />
 
-        <div className="flex-1 mb-12 lg:mb-0 z-30 px-5 py-5">
+        <div className="flex-1 flex flex-col min-h-0 z-30 px-5 py-5 text-gray-900 dark:text-gray-400">
           <Outlet />
         </div>
         <DashboardSideBarMenu />

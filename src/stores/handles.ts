@@ -1,6 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { requestCheckUser, requestLogin, requestPing } from "./request";
-import type { LoginReq } from "../utils/request";
+import {
+  getListCategory,
+  requestCheckUser,
+  requestLogin,
+  requestPing,
+} from "./request";
+import type {
+  CategoryFilter,
+  FilterListPayload,
+  LoginReq,
+} from "../utils/request";
 
 export const handleLoginAsync = createAsyncThunk(
   "user/login",
@@ -13,7 +22,7 @@ export const handleLoginAsync = createAsyncThunk(
 export const handlePingAsync = createAsyncThunk("global/ping", async () => {
   const res = await requestPing();
 
-  console.log(res.data);
+  return res.data;
 });
 
 export const handleCheckUserAsync = createAsyncThunk("user/check", async () => {
@@ -21,3 +30,12 @@ export const handleCheckUserAsync = createAsyncThunk("user/check", async () => {
 
   return res.data;
 });
+
+export const getListCategoryAsync = createAsyncThunk(
+  "category/list",
+  async (payload: FilterListPayload<CategoryFilter>) => {
+    const res = await getListCategory(payload);
+
+    return res.data;
+  }
+);

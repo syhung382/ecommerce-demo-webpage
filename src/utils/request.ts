@@ -1,7 +1,9 @@
-export interface ResponseResult<T> {
-  retCode: number;
-  retText: string;
-  data: T;
+import type { LoginRes } from "./response";
+
+export interface FilterListPayload<T> {
+  body: T;
+  limit: number;
+  page: number;
 }
 
 export interface UserSliceProps {
@@ -11,16 +13,23 @@ export interface UserSliceProps {
   errorMessage?: string;
 }
 
-export interface LoginRes {
-  email?: string;
-  fullname?: string;
-  avatar?: string;
-  gender?: number;
-  lastLoginDate?: string;
-  token?: string;
-}
-
 export interface LoginReq {
   username: string;
   password: string;
+}
+
+export interface CategoryReq {
+  parrentId?: string;
+  title: string;
+  description?: string;
+  image?: string;
+  status: number;
+  deleteFlag: boolean;
+}
+
+export interface CategoryFilter {
+  title?: string;
+  status?: number;
+  typeSort?: string;
+  isDesc?: boolean;
 }

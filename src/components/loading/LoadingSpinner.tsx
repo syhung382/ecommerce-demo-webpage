@@ -1,13 +1,20 @@
 import type { LoadingSprinProps } from "../../utils/interface";
 
-const LoadingSpinner = ({ size, borderSize, ...props }: LoadingSprinProps) => {
+const LoadingSpinner = ({
+  size,
+  borderSize,
+  color,
+  ...props
+}: LoadingSprinProps) => {
+  const type = color === "dark" ? "#99a1af" : "#ffff";
+
   return (
     <div
-      className="mx-auto border-4 border-t-0 text-white animate-spin rounded-full"
+      className="mx-auto border-4 border-t-0 animate-spin rounded-full"
       style={{
         width: size,
         height: size,
-        border: `${borderSize}px solid white`,
+        border: `${borderSize}px solid ${type}`,
         borderTop: `${borderSize}px solid transparent`,
         borderBottom: `${borderSize}px solid transparent`,
       }}

@@ -162,7 +162,7 @@ const DashboardSideBar = () => {
           ></DashBoardSideItem>
 
           <div
-            onClick={() => handleLogout}
+            onClick={() => handleLogout()}
             className={`flex-1 flex gap-x-3 px-3 items-center mt-4 py-2  rounded-lg cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-100`}
           >
             <div>

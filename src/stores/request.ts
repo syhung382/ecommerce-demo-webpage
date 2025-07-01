@@ -1,4 +1,8 @@
-import type { LoginReq } from "../utils/request";
+import type {
+  CategoryFilter,
+  FilterListPayload,
+  LoginReq,
+} from "../utils/request";
 import { axiosInstance } from "./api/axiosInstance";
 
 export function requestLogin(data: LoginReq) {
@@ -12,10 +16,10 @@ export function requestPing() {
 export function requestCheckUser() {
   return axiosInstance.get("/UserAdmin/check_user_by_token");
 }
-// export function requestPing(body?: any, token?: string) {
-//   return axiosInstance.post("/ping", body, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// }
+
+export function getListCategory(payload: FilterListPayload<CategoryFilter>) {
+  return axiosInstance.post(
+    `/MstCategoryAdmin/list?limit=${payload.limit}&page=${payload.page}`,
+    payload.body
+  );
+}
