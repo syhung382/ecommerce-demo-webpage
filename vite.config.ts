@@ -11,12 +11,12 @@ export default defineConfig({
     host: "localhost",
     strictPort: true,
     open: true,
-    proxy: {
-      "/api": {
-        target: "http://ecommerce-be-api.runasp.net",
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "http://ecommerce-be-api.runasp.net",
+    //     changeOrigin: true,
+    //   },
+    // },
   },
   // build: {
   //   outDir: "dist",

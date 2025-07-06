@@ -1,4 +1,4 @@
-import type { LoginRes } from "./response";
+import type { LoginRes } from "./responseUtils";
 
 export interface FilterListPayload<T> {
   body: T;
@@ -19,12 +19,12 @@ export interface LoginReq {
 }
 
 export interface CategoryReq {
-  parrentId?: string;
+  parentId?: string;
   title: string;
   description?: string;
   image?: string;
-  status: number;
-  deleteFlag: boolean;
+  status?: number;
+  deleteFlag?: boolean;
 }
 
 export interface CategoryFilter {
@@ -32,4 +32,13 @@ export interface CategoryFilter {
   status?: number;
   typeSort?: string;
   isDesc?: boolean;
+}
+
+export interface UserRes {
+  id: number;
+  email?: string;
+  fullName?: string;
+  userName: string;
+  avatar?: string;
+  gender: number;
 }

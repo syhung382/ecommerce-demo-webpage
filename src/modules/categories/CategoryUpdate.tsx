@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import Heading from "../../components/layouts/Heading";
 import DashboardBody from "../../components/layouts/DashboardBody";
 import LoadingComponent from "../../components/layouts/LoadingComponent";
-import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import type { CategoryFilter, CategoryReq } from "../../utils/requestUtils";
+import type { CategoryFilter } from "../../utils/requestUtils";
 import { Field } from "../../components/field";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
@@ -18,8 +16,9 @@ import type {
   UploadImageRes,
 } from "../../utils/responseUtils";
 import {
-  handleCategoryAddNewAsync,
+  handleCategoryGetDetailAsync,
   handleCategoryNoParentListAsync,
+  handleCategoryUpdateAsync,
 } from "../../stores/handles";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
@@ -29,14 +28,7 @@ import RadioInput from "../../components/input/RadioInput";
 import { IconRequired } from "../../components/icons";
 import { LoadingSpinner } from "../../components/loading";
 
-const schema = yup.object({
-  title: yup
-    .string()
-    .required("Vui lòng nhập tiêu đề!")
-    .min(4, "Tiêu đề phải ít nhất 4 ký tự!"),
-});
-
-const CategoriesAdd = () => {
+const CategoryUpdate = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const [itemDropdown, setItemDropdown] = useState<CategoryRes | null>(null);
@@ -45,6 +37,10 @@ const CategoriesAdd = () => {
   >(null);
   const [image, setImage] = useState<UploadImageRes>({ id: "", imageUrl: "" });
   const [status, setStatus] = useState<0 | 1>(0);
+  const [currentCategory, setCurrentCategory] = useState<Category | null>();
+
+  const [params] = useSearchParams();
+  const currentId: string | null = params.get("id");
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -52,10 +48,10 @@ const CategoriesAdd = () => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<CategoryReq>({
+  } = useForm<Category>({
     mode: "onSubmit",
-    resolver: yupResolver(schema, { abortEarly: false }),
   });
 
   const handleBack = () => {
@@ -66,14 +62,13 @@ const CategoriesAdd = () => {
     }
   };
 
-  const handleAddSubmit = async (value: CategoryReq) => {
+  const handleUpdateSubmit = async (value: Category) => {
     setLoadingSubmit(true);
-    const request: CategoryReq = {
-      title: value.title,
-      description: value.description,
-      status: status,
-      deleteFlag: false,
-    };
+    if (currentCategory == null) return;
+    const request: Category = currentCategory;
+    request.title = value.title;
+    request.description = value.description;
+    request.status = status;
 
     if (itemDropdown) {
       request.parentId = itemDropdown.id;
@@ -83,7 +78,7 @@ const CategoriesAdd = () => {
     }
 
     try {
-      const res = await dispatch(handleCategoryAddNewAsync(request));
+      const res = await dispatch(handleCategoryUpdateAsync(request));
       if (res) {
         if (res.meta.requestStatus === "rejected") {
           toast.error("connecting server error!");
@@ -92,7 +87,7 @@ const CategoriesAdd = () => {
         if (res.meta.requestStatus === "fulfilled") {
           const resData = res.payload as ResponseResult<string>;
           if (resData.retCode === 0) {
-            toast.success("Thêm mới danh mục thành công!");
+            toast.success("cập nhật danh mục thành công!");
             navigate(-1);
             setLoadingSubmit(false);
           } else {
@@ -103,51 +98,93 @@ const CategoriesAdd = () => {
       }
     } catch (e) {
       console.log("error add: ", e);
-      toast.error("Đã xảy ra lỗi khi thêm danh mục!");
+      toast.error("Đã xảy ra lỗi khi cập nhật danh mục!");
       setLoadingSubmit(false);
     }
   };
 
-  useEffect(() => {
-    async function fetchCategory() {
-      const bodyReq: CategoryFilter = {
-        title: "",
-        status: 0,
-        isDesc: false,
-        typeSort: "",
-      };
+  async function fetchCategory() {
+    const bodyReq: CategoryFilter = {
+      title: "",
+      status: 0,
+      isDesc: false,
+      typeSort: "",
+    };
 
-      try {
-        const res = await dispatch(
-          handleCategoryNoParentListAsync(bodyReq)
-        ).unwrap();
-        if (res) {
-          if (res.retCode === 0) {
-            if (itemDropdown) {
-              const newList = res.data as Category[];
-              const newRes = newList.filter((f) => f.id != itemDropdown.id);
-              setListItemDropdown(newRes);
-            } else {
-              setListItemDropdown(res.data);
-            }
+    try {
+      const res = await dispatch(
+        handleCategoryNoParentListAsync(bodyReq)
+      ).unwrap();
+      if (res) {
+        if (res.retCode === 0) {
+          if (itemDropdown || currentCategory) {
+            let newList = res.data as Category[];
 
-            setLoading(false);
+            if (itemDropdown)
+              newList = newList.filter((f) => f.id != itemDropdown.id);
+            if (currentCategory)
+              newList = newList.filter((f) => f.id != currentCategory.id);
+
+            setListItemDropdown(newList);
           } else {
-            toast.error(res.retText);
+            setListItemDropdown(res.data);
           }
         } else {
-          console.log("error: ", res);
+          toast.error(res.retText);
         }
-      } catch (e) {
-        console.log("error: ", e);
+      } else {
+        console.log("error: ", res);
       }
+    } catch (e) {
+      console.log("error: ", e);
     }
-    fetchCategory();
-  }, []);
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!currentId) return;
+
+      const res = await dispatch(handleCategoryGetDetailAsync(currentId));
+
+      if (res) {
+        if (res.meta.requestStatus === "rejected") {
+          toast.error("connecting server error!");
+        }
+        if (res.meta.requestStatus === "fulfilled") {
+          const resData = res.payload as ResponseResult<Category>;
+          if (resData.retCode === 0) {
+            reset(resData.data);
+            setCurrentCategory(resData.data);
+            fetchCategory();
+            if (resData.data.image)
+              setImage({ ...image, imageUrl: resData.data.image });
+          } else {
+            toast.error(resData.retText);
+          }
+        }
+      }
+
+      setLoading(false);
+    }
+    fetchData();
+  }, [currentId]);
+
+  useEffect(() => {
+    if (!currentCategory?.parentId || !listItemDropdown?.length) return;
+
+    const found = listItemDropdown.find(
+      (x) => x.id === currentCategory.parentId
+    );
+    if (found) setItemDropdown(found);
+  }, [listItemDropdown, currentCategory?.parentId]);
 
   useEffect(() => {
     document.title = "Quản trị | Thêm mới danh mục";
   }, []);
+
+  if (!currentId || currentId === "") {
+    return;
+  }
 
   if (loading) return <LoadingComponent></LoadingComponent>;
 
@@ -160,7 +197,7 @@ const CategoriesAdd = () => {
         buttonColor="secondary"
         onClick={handleBack}
       >
-        <form autoComplete="off" onSubmit={handleSubmit(handleAddSubmit)}>
+        <form autoComplete="off" onSubmit={handleSubmit(handleUpdateSubmit)}>
           <div className="flex flex-row w-full gap-x-4">
             <Field>
               <Label htmlFor="title">
@@ -231,7 +268,7 @@ const CategoriesAdd = () => {
               {loadingSubmit ? (
                 <LoadingSpinner size={20} borderSize={5}></LoadingSpinner>
               ) : (
-                "Thêm mới"
+                "Cập nhật"
               )}
             </DashboardButton>
           </Field>
@@ -241,4 +278,4 @@ const CategoriesAdd = () => {
   );
 };
 
-export default CategoriesAdd;
+export default CategoryUpdate;

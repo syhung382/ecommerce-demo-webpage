@@ -6,7 +6,19 @@ const LoadingSpinner = ({
   color,
   ...props
 }: LoadingSprinProps) => {
-  const type = color === "dark" ? "#99a1af" : "#ffff";
+  let type;
+  switch (color) {
+    case "dark":
+      type = "#99a1af";
+      break;
+    case "outline":
+      type = "#4a5565";
+      break;
+
+    default:
+      type = "#ffff";
+      break;
+  }
 
   return (
     <div

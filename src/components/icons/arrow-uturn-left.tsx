@@ -1,6 +1,6 @@
 import type { svgProp } from "../../utils/interface";
 
-const chevronUp = ({ ...rest }: svgProp) => {
+const arrowUturnLeft = ({ ...rest }: svgProp) => {
   return (
     <svg
       {...rest}
@@ -13,10 +13,10 @@ const chevronUp = ({ ...rest }: svgProp) => {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="m4.5 15.75 7.5-7.5 7.5 7.5"
+        d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
       />
     </svg>
   );
 };
 
-export default chevronUp;
+export default arrowUturnLeft;

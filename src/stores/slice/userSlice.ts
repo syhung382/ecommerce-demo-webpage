@@ -1,6 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
-import type { UserSliceProps } from "../../utils/request";
-import { handleCheckUserAsync, handleLoginAsync } from "../handles";
+import type { UserSliceProps } from "../../utils/requestUtils";
+import { handleLoginAsync, handleUserCheckAsync } from "../handles";
 import { localStorageName, RetCodeEnum } from "../../utils/constants";
 
 const initialState: UserSliceProps = {
@@ -72,7 +72,7 @@ const userSlice = createSlice({
       });
     //check user
     builder
-      .addCase(handleCheckUserAsync.fulfilled, (state, action) => {
+      .addCase(handleUserCheckAsync.fulfilled, (state, action) => {
         switch (action.payload.retCode) {
           case RetCodeEnum.Ok: {
             state.user.email = action.payload.data.email;
@@ -97,8 +97,8 @@ const userSlice = createSlice({
           }
         }
       })
-      .addCase(handleCheckUserAsync.pending, () => {})
-      .addCase(handleCheckUserAsync.rejected, (state) => {
+      .addCase(handleUserCheckAsync.pending, () => {})
+      .addCase(handleUserCheckAsync.rejected, (state) => {
         state.serverError = true;
       });
     // other

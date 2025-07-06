@@ -60,3 +60,20 @@ export const RetCodeEnum = {
   ApiNoDelete: 5,
   ApiNotRole: 6,
 } as const;
+
+export const PageLimit = {
+  SMALL: 10,
+  MEDIUM: 25,
+  LARGE: 50,
+  EXTRALARGE: 100,
+} as const;
+
+export const UserStatus = {
+  Active: 0,
+  TemporarilyDeleted: 1,
+} as const;
+
+export const StatusEnum = {
+  Active: 0,
+  InActive: 1,
+} as const;

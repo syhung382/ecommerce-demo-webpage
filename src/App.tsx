@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { RouterProvider } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./hooks/hook";
 import { localStorageName } from "./utils/constants";
-import { handleCheckUserAsync } from "./stores/handles";
 import { router } from "./router/router";
+import { handleUserCheckAsync } from "./stores/handles";
 
 function App() {
   const darkMode = useAppSelector((state) => state.global.darkMode);
@@ -32,7 +32,7 @@ function App() {
 
     const userToken = localStorage.getItem(localStorageName.USERTOKEN);
 
-    if (userToken) dispatch(handleCheckUserAsync());
+    if (userToken) dispatch(handleUserCheckAsync());
   }, []);
 
   return (

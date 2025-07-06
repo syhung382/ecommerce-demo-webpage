@@ -5,13 +5,14 @@ import { InputPassword } from "../components/input";
 import { Field } from "../components/field";
 import { Label } from "../components/label";
 import { Button } from "../components/buttons";
-import type { LoginReq } from "../utils/request";
+import type { LoginReq } from "../utils/requestUtils";
 import { useAppDispatch, useAppSelector } from "../hooks/hook";
 import { handleLoginAsync } from "../stores/handles";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { IconRequired } from "../components/icons";
 
 const schema = yup.object({
   username: yup
@@ -76,7 +77,9 @@ const LoginPage = () => {
         className="mt-4 w-full px-10"
       >
         <Field>
-          <Label htmlFor="username">Tên đăng nhập</Label>
+          <Label htmlFor="username">
+            Tên đăng nhập <IconRequired />
+          </Label>
           {errors.username && (
             <ul className="text-red-500 text-xs mb-2 list-inside">
               {Array.isArray(errors.username.types)
@@ -88,10 +91,13 @@ const LoginPage = () => {
             name="username"
             placeholder="Tên đăng nhập"
             control={control}
+            disabled={isLoading}
           ></Input>
         </Field>
         <Field>
-          <Label htmlFor="password">Mật khẩu</Label>
+          <Label htmlFor="password">
+            Mật khẩu <IconRequired />
+          </Label>
           {errors.password && (
             <ul className="text-red-500 text-xs mb-2 list-inside ">
               {Array.isArray(errors.password.types)
@@ -102,6 +108,7 @@ const LoginPage = () => {
           <InputPassword
             placeholder="Mật khẩu"
             name="password"
+            disabled={isLoading}
             control={control}
           ></InputPassword>
         </Field>

@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 
 import { adminSideBarMenuPath } from "../utils/constants";
+import CategoryUpdate from "../modules/categories/CategoryUpdate";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: adminSideBarMenuPath.CategoryAdd,
         element: <CategoriesAdd />,
+      },
+      {
+        path: adminSideBarMenuPath.CategoryUpdate,
+        element: <CategoryUpdate />,
       },
       { path: "*", element: <PageNotFound /> },
     ],

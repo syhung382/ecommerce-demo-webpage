@@ -28,7 +28,7 @@ export interface LoginRes {
   token?: string;
 }
 
-export interface CategoryRes {
+export interface Category {
   id: string;
   parentId?: string;
   title: string;
@@ -40,4 +40,23 @@ export interface CategoryRes {
   createdBy: number;
   updatedAt?: string;
   updatedBy?: number;
+}
+
+export interface CategoryRes {
+  id: string;
+  parentCategory?: Category;
+  title: string;
+  description?: string;
+  image?: string;
+  status: number;
+  deleteFlag: boolean;
+  createdAt: string;
+  createdBy: number;
+  updatedAt?: string;
+  updatedBy?: number;
+}
+
+export interface UploadImageRes {
+  id: string;
+  imageUrl: string;
 }

@@ -9,7 +9,7 @@ const Select = ({
 }: DropdownSelectProps) => {
   return (
     <div
-      className={`flex items-center justify-between py-2 px-4 dark:bg-gray-700 bg-white border dark:border-gray-500 border-gray-300 rounded-lg cursor-pointer font-medium text-[15px]`}
+      className={`flex items-center justify-between py-3 px-4 dark:bg-gray-800 bg-white border dark:border-gray-500 border-gray-300 rounded-lg cursor-pointer font-medium text-[15px] hover:border-blue-300 `}
       onClick={onClick}
     >
       <span>{itemSelected ? itemSelected : placeholder}</span>
