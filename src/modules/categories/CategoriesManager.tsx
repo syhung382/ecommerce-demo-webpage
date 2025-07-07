@@ -69,21 +69,26 @@ const CategoriesManager = () => {
   };
 
   const handleChangePage = (value: number) => {
-    if (headerParams.page === value) return;
-    setHeaderParams((prev) => ({
-      ...prev,
-      page: value,
-    }));
+    setHeaderParams((prev) => {
+      if (prev.page === value) return prev; // tránh tạo object mới
+      return {
+        ...prev,
+        page: value,
+      };
+    });
   };
 
   const handleChangeLimit = (value: number) => {
     if (headerParams.limit === value) return;
 
-    setHeaderParams((prev) => ({
-      ...prev,
-      page: 1,
-      limit: value,
-    }));
+    setHeaderParams((prev) => {
+      if (prev.limit === value) return prev;
+
+      return {
+        ...prev,
+        limit: value,
+      };
+    });
   };
 
   const handleSort = ({
@@ -113,14 +118,17 @@ const CategoriesManager = () => {
         });
         break;
       case "setTitle":
-        setHeaderParams((prev) => ({
-          ...prev,
-          page: 1,
-          body: {
-            ...prev.body,
-            title: value,
-          },
-        }));
+        setHeaderParams((prev) => {
+          const newBody = { ...prev.body, title: value };
+          if (JSON.stringify(prev.body) === JSON.stringify(newBody))
+            return prev;
+
+          return {
+            ...prev,
+            page: 1,
+            body: newBody,
+          };
+        });
         break;
       default:
         break;
