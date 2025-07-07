@@ -37,18 +37,17 @@ const CategoriesManager = () => {
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const [contentLoading, setContentLoadng] = useState(false);
   const [categoryList, setCategoryList] = useState<CategoryRes[] | null>(null);
-  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>({
-    title: "",
-    status: 0,
-    isDesc: false,
-    typeSort: "",
-  });
   const [headerParams, setHeaderParams] = useState<
     FilterListPayload<CategoryFilter>
   >({
     limit: 10,
     page: 1,
-    body: categoryFilter,
+    body: {
+      title: "",
+      status: undefined,
+      isDesc: false,
+      typeSort: "",
+    },
   });
   const [pagin, setPagin] = useState<Pagin | null>(null);
   const [sortTitleType, setSortTitleType] = useState<"Off" | "ASC" | "DESC">(
@@ -82,6 +81,7 @@ const CategoriesManager = () => {
 
     setHeaderParams((prev) => ({
       ...prev,
+      page: 1,
       limit: value,
     }));
   };
@@ -99,20 +99,28 @@ const CategoriesManager = () => {
           const nextSort =
             prev === "Off" ? "ASC" : prev === "ASC" ? "DESC" : "Off";
 
-          setCategoryFilter((prevFilter) => ({
-            ...prevFilter,
-            typeSort: nextSort === "Off" ? "" : value,
-            isDesc: nextSort === "DESC",
+          setHeaderParams((prev) => ({
+            ...prev,
+            page: 1,
+            body: {
+              ...prev.body,
+              typeSort: nextSort === "Off" ? "" : value,
+              isDesc: nextSort === "DESC",
+            },
           }));
 
           return nextSort;
         });
         break;
       case "setTitle":
-        setCategoryFilter({
-          ...categoryFilter,
-          title: value,
-        });
+        setHeaderParams((prev) => ({
+          ...prev,
+          page: 1,
+          body: {
+            ...prev.body,
+            title: value,
+          },
+        }));
         break;
       default:
         break;
@@ -144,7 +152,7 @@ const CategoriesManager = () => {
         const resData = res.payload as ResponseResult<string>;
         if (resData.retCode === 0) {
           toast.success("Xóa danh mục thành công!");
-          await fetchCategory();
+          fetchCategory();
           setLoadingSubmit(false);
         } else {
           toast.error(resData.retText);
@@ -194,13 +202,6 @@ const CategoriesManager = () => {
   useEffect(() => {
     fetchCategory();
   }, [headerParams]);
-
-  useEffect(() => {
-    setHeaderParams((prev) => ({
-      ...prev,
-      body: categoryFilter,
-    }));
-  }, [categoryFilter]);
 
   useEffect(() => {
     function changeValueSearch() {
@@ -300,7 +301,7 @@ const CategoriesManager = () => {
                       <>
                         <img
                           src={`${currentUrlApi}/Global/get-image?imageUrl=${item.image}`}
-                          alt={item.image}
+                          alt={item.title}
                           className="w-10 h-10 object-cover rounded-full mx-auto"
                         />
                       </>

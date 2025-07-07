@@ -5,6 +5,7 @@ const ButtonSearch = ({ isOpen, onClick }: ButtonSearchProps) => {
   if (isOpen) {
     return (
       <IconBack
+        aria-label="Trở về"
         className="cursor-pointer"
         width={20}
         height={20}
@@ -14,6 +15,7 @@ const ButtonSearch = ({ isOpen, onClick }: ButtonSearchProps) => {
   } else {
     return (
       <IconSearch
+        aria-label="Tìm kiếm"
         className="cursor-pointer"
         width={20}
         height={20}

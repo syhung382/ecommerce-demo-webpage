@@ -170,3 +170,5 @@ export interface SpanTitleProps extends ChildrenProps {
         HTMLSpanElement
       >;
 }
+
+//table
