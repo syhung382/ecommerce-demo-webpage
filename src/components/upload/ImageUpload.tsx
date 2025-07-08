@@ -37,9 +37,9 @@ const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
             setImage({ id: "", imageUrl: "" });
           }
         }
-      } catch (error) {
-        console.error("Delete error:", error);
+      } catch (e) {
         toast.error("Đã xảy ra lỗi khi xóa ảnh!");
+        console.log("error: ", e);
       } finally {
         setIsLoading(false);
       }
@@ -136,9 +136,9 @@ const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
             setImage({ id: data.data.id, imageUrl: data.data.imageUrl });
           }
         }
-      } catch (error) {
-        console.error("Upload error:", error);
+      } catch (e) {
         toast.error("Đã xảy ra lỗi khi tải ảnh lên!");
+        console.log("error: ", e);
       } finally {
         setIsLoading(false);
       }

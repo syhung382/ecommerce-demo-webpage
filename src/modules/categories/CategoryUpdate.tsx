@@ -132,10 +132,9 @@ const CategoryUpdate = () => {
         } else {
           toast.error(res.retText);
         }
-      } else {
-        console.log("error: ", res);
       }
     } catch (e) {
+      toast.error("Lỗi không xác định");
       console.log("error: ", e);
     }
   }

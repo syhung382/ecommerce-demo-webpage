@@ -19,7 +19,7 @@ const Input = ({
         className={`${
           className
             ? className
-            : "px-3 py-3 outline-none w-full placeholder:text-gray-500 focus:rounded-lg focus:border focus:border-blue-500"
+            : "px-3 py-3 outline-none w-full placeholder:text-gray-500 focus:rounded-lg focus:border focus:border-blue-500 dark:text-gray-300"
         }`}
         type="text"
         id={name}

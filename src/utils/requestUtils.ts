@@ -6,18 +6,25 @@ export interface FilterListPayload<T> {
   page: number;
 }
 
-export interface UserSliceProps {
-  isLoading: boolean;
-  user: LoginRes;
-  serverError: boolean;
-  errorMessage?: string;
+export interface DeletedRes {
+  deletedIds?: string[];
+  notFoundIds?: string[];
 }
 
-export interface LoginReq {
-  username: string;
-  password: string;
+interface userAuthorCreate {
+  createdAt: string;
+  createdBy: number;
+  updatedAt?: string;
+  updatedBy?: number;
+}
+interface deleteFlag {
+  deleteFlag: boolean;
+}
+interface status {
+  status: number;
 }
 
+//category
 export interface CategoryReq {
   parentId?: string;
   title: string;
@@ -34,6 +41,7 @@ export interface CategoryFilter {
   isDesc?: boolean;
 }
 
+//user
 export interface UserRes {
   id: number;
   email?: string;
@@ -41,4 +49,35 @@ export interface UserRes {
   userName: string;
   avatar?: string;
   gender: number;
+}
+
+export interface UserSliceProps {
+  isLoading: boolean;
+  user: LoginRes;
+  serverError: boolean;
+  errorMessage?: string;
+}
+
+export interface LoginReq {
+  username: string;
+  password: string;
+}
+
+//tag
+export interface TagOfProduct extends userAuthorCreate, deleteFlag, status {
+  id: string;
+  title: string;
+  status: number;
+}
+
+export interface TagOfProductReq extends deleteFlag {
+  title: string;
+  status: number;
+}
+
+export interface TagOfProductFilter {
+  title?: string;
+  status?: number;
+  typeSort?: string;
+  isDesc?: boolean;
 }

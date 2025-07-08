@@ -3,6 +3,7 @@ import { lazy } from "react";
 
 import { adminSideBarMenuPath } from "../utils/constants";
 import CategoryUpdate from "../modules/categories/CategoryUpdate";
+import TagOfProductManager from "../modules/tags/TagOfProductManager";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: adminSideBarMenuPath.CategoryUpdate,
         element: <CategoryUpdate />,
+      },
+      {
+        path: adminSideBarMenuPath.TagOfProductManager,
+        element: <TagOfProductManager />,
       },
       { path: "*", element: <PageNotFound /> },
     ],

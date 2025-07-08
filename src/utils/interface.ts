@@ -1,6 +1,11 @@
 import { type Control, type FieldValues } from "react-hook-form";
-import type { CategoryRes, UploadImageRes } from "./responseUtils";
+import type { CategoryRes, Pagin, UploadImageRes } from "./responseUtils";
 import type { Dispatch, SetStateAction } from "react";
+import type {
+  FilterListPayload,
+  TagOfProduct,
+  TagOfProductFilter,
+} from "./requestUtils";
 
 //base
 export interface ChildrenProps {
@@ -21,7 +26,7 @@ export interface LabelStatusProps extends ChildrenProps {
 
 //dashboard
 export interface DashboardBodyProps extends ChildrenProps, OnClickProps {
-  title: string;
+  title?: string;
   buttonTitle?: string;
   buttonColor?: "primary" | "secondary";
 }
@@ -171,4 +176,20 @@ export interface SpanTitleProps extends ChildrenProps {
       >;
 }
 
-//table
+//tag
+export interface TagOfProductDetailProps {
+  data: TagOfProduct;
+}
+export interface TagOfProductTableProps {
+  loading?: boolean;
+  data: TagOfProduct[];
+  paging?: Pagin;
+  headerParams: FilterListPayload<TagOfProductFilter>;
+  setHeaderParams: Dispatch<
+    SetStateAction<FilterListPayload<TagOfProductFilter>>
+  >;
+  handleResetData?: (() => void) | undefined;
+}
+export interface TagOfProductUpdateProps extends OnClickProps {
+  id: string;
+}

@@ -10,6 +10,11 @@ import {
   requestDeleteImage,
   requestLogin,
   requestPing,
+  requestTagAddNew,
+  requestTagDelete,
+  requestTagGetDetail,
+  requestTagGetList,
+  requestTagUpdate,
   requestUploadImage,
   requestUserFromId,
 } from "./request";
@@ -18,6 +23,9 @@ import type {
   CategoryReq,
   FilterListPayload,
   LoginReq,
+  TagOfProduct,
+  TagOfProductFilter,
+  TagOfProductReq,
 } from "../utils/requestUtils";
 import type { Category, UploadImageRes } from "../utils/responseUtils";
 
@@ -135,6 +143,50 @@ export const handleImageDeleteAsync = createAsyncThunk(
   "global/image-delete",
   async (payload: UploadImageRes) => {
     const res = await requestDeleteImage(payload);
+
+    return res.data;
+  }
+);
+
+//tag
+export const handleTagOfProductAddNewAsync = createAsyncThunk(
+  "tag/add",
+  async (payload: TagOfProductReq) => {
+    const res = await requestTagAddNew(payload);
+
+    return res.data;
+  }
+);
+export const handleTagOfProductDetail = createAsyncThunk(
+  "tag/detail",
+  async (payload: string) => {
+    const res = await requestTagGetDetail(payload);
+
+    return res.data;
+  }
+);
+export const handleTagOfProductList = createAsyncThunk(
+  "tag/list",
+  async (payload: FilterListPayload<TagOfProductFilter>) => {
+    const res = await requestTagGetList(payload);
+
+    return res.data;
+  }
+);
+
+export const handleTagOfProductUpdateAsync = createAsyncThunk(
+  "tag/update",
+  async (payload: TagOfProduct) => {
+    const res = await requestTagUpdate(payload);
+
+    return res.data;
+  }
+);
+
+export const handleTagDeleteAsync = createAsyncThunk(
+  "tag/delete",
+  async (payload: string[]) => {
+    const res = await requestTagDelete(payload);
 
     return res.data;
   }

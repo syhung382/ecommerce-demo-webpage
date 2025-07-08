@@ -11,7 +11,7 @@ const DashboardBody = ({
   return (
     <div className="grid bg-white dark:bg-gray-800 rounded-xl mt-6">
       <div className="p-5 flex text-md font-semibold border-b border-gray-200 dark:border-gray-500">
-        <div className="flex-1">{title}</div>
+        {title && <div className="flex-1">{title}</div>}
         {buttonTitle && (
           <div>
             <DashboardButton buttonColor={buttonColor} onClick={onClick}>

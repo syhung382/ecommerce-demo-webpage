@@ -19,7 +19,7 @@ const RadioInput = ({
         onChange={() => onChange(value)}
         className="h-4 w-4"
       />
-      <span className="font-semibold">{title}</span>
+      <span className="font-semibold dark:text-gray-300">{title}</span>
     </label>
   );
 };

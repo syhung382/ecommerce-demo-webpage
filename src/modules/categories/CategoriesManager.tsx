@@ -13,6 +13,7 @@ import type {
 } from "../../utils/responseUtils";
 import type {
   CategoryFilter,
+  DeletedRes,
   FilterListPayload,
 } from "../../utils/requestUtils";
 import { useAppDispatch } from "../../hooks/hook";
@@ -157,7 +158,7 @@ const CategoriesManager = () => {
         setLoadingSubmit(false);
       }
       if (res.meta.requestStatus === "fulfilled") {
-        const resData = res.payload as ResponseResult<string>;
+        const resData = res.payload as ResponseResult<DeletedRes>;
         if (resData.retCode === 0) {
           toast.success("Xóa danh mục thành công!");
           fetchCategory();
@@ -195,7 +196,6 @@ const CategoriesManager = () => {
         }
       } else {
         toast.error("lỗi khi tải dữ liệu!");
-        console.log("error: ", res);
         setLoading(false);
         setContentLoadng(false);
       }
@@ -239,7 +239,7 @@ const CategoriesManager = () => {
     <>
       <Heading>Danh mục sản phẩm</Heading>
       <DashboardBody
-        title="Danh sách"
+        title="Danh sách danh mục"
         buttonTitle="Thêm danh mục"
         onClick={handleNavigateAdd}
       >

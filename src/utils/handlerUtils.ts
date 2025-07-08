@@ -1,7 +1,7 @@
 export function removeVietnameseTones(str: string) {
   return str
-    .normalize("NFD") // tách các dấu khỏi ký tự
-    .replace(/[\u0300-\u036f]/g, "") // xóa các dấu
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/đ/g, "d")
     .replace(/Đ/g, "D")
     .toLowerCase();

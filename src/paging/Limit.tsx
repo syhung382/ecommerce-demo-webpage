@@ -31,7 +31,7 @@ const Limit = ({ limit, handleSelectLimit }: LimitProps) => {
   return (
     <>
       <div className="flex items-center gap-x-1">
-        -<div> Hiển thị</div>
+        <div> Hiển thị</div>
         <div>
           <div ref={dropdownRef} className="relative inline-block w-full">
             <div

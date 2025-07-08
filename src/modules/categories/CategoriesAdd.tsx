@@ -102,8 +102,8 @@ const CategoriesAdd = () => {
         }
       }
     } catch (e) {
-      console.log("error add: ", e);
       toast.error("Đã xảy ra lỗi khi thêm danh mục!");
+      console.log("error: ", e);
       setLoadingSubmit(false);
     }
   };
@@ -135,10 +135,9 @@ const CategoriesAdd = () => {
           } else {
             toast.error(res.retText);
           }
-        } else {
-          console.log("error: ", res);
         }
       } catch (e) {
+        toast.error("Lỗi không xác định");
         console.log("error: ", e);
       }
     }

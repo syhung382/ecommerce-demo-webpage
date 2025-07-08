@@ -3,6 +3,9 @@ import type {
   CategoryReq,
   FilterListPayload,
   LoginReq,
+  TagOfProduct,
+  TagOfProductFilter,
+  TagOfProductReq,
 } from "../utils/requestUtils";
 import type { Category, UploadImageRes } from "../utils/responseUtils";
 import { axiosInstance } from "./api/axiosInstance";
@@ -79,4 +82,28 @@ export function requestDeleteImage(payload: UploadImageRes) {
   } else {
     return axiosInstance.delete("/Global/delete-image", { data: payload });
   }
+}
+
+//tag
+export function requestTagAddNew(payload: TagOfProductReq) {
+  return axiosInstance.post("/MstTagOfProductAdmin/create", payload);
+}
+export function requestTagGetDetail(payload: string) {
+  return axiosInstance.get(`/MstTagOfProductAdmin/detail/${payload}`);
+}
+export function requestTagGetList(
+  payload: FilterListPayload<TagOfProductFilter>
+) {
+  return axiosInstance.post(
+    `/MstTagOfProductAdmin/list?limit=${payload.limit}&page=${payload.page}`,
+    payload.body
+  );
+}
+export function requestTagUpdate(payload: TagOfProduct) {
+  return axiosInstance.put("/MstTagOfProductAdmin/update", payload);
+}
+export function requestTagDelete(payload: string[]) {
+  return axiosInstance.delete("/MstTagOfProductAdmin/delete", {
+    data: payload,
+  });
 }
