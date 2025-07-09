@@ -1,4 +1,4 @@
-import { currentUrl } from "../../stores/api/axiosInstance";
+import { currentUrlImage } from "../../stores/api/axiosInstance";
 import type { ImageSelectProps } from "../../utils/interface";
 import { IconImageDefault } from "../icons";
 
@@ -12,7 +12,7 @@ const ImageSelect = ({ image, onClick }: ImageSelectProps) => {
         onClick={onClick}
       >
         <img
-          src={`${currentUrl}/uploads/${image.imageUrl}`}
+          src={`${currentUrlImage}${image.imageUrl}`}
           alt={image.imageUrl}
           className="object-cover h-[24px]"
         />

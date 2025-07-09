@@ -2,7 +2,7 @@ import axios from "axios";
 import { IconCheckCircle } from "../../components/icons";
 import type { ImageItemProps } from "../../utils/interface";
 import { useEffect, useState } from "react";
-import { currentUrl } from "../../stores/api/axiosInstance";
+import { currentUrlApi, currentUrlImage } from "../../stores/api/axiosInstance";
 import { formatDate } from "../../utils/handlerUtils";
 
 const ImageItem = ({
@@ -21,7 +21,7 @@ const ImageItem = ({
 
   const fetchImageInfo = async (imageUrl: string): Promise<ImageInfo> => {
     const response = await axios.get<ImageInfo>(
-      "https://localhost:44371/api/Global/get-image",
+      `${currentUrlApi}/Global/get-image`,
       {
         params: { imageUrl },
       }
@@ -56,7 +56,7 @@ const ImageItem = ({
       )}
 
       <img
-        src={currentUrl + imageInfo?.relativePath}
+        src={currentUrlImage + imageInfo?.relativePath}
         alt="avt"
         className="w-full h-20 object-cover"
       />

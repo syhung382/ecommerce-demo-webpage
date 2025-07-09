@@ -18,7 +18,7 @@ import type {
 } from "../../utils/requestUtils";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
-import { currentUrl } from "../../stores/api/axiosInstance";
+import { currentUrlImage } from "../../stores/api/axiosInstance";
 import LabelStatus from "../../components/label/LabelStatus";
 import ButtonSort from "../../components/buttons/ButtonSort";
 import { ButtonSearch } from "../../components/buttons";
@@ -308,7 +308,7 @@ const CategoriesManager = () => {
                     {item.image ? (
                       <>
                         <img
-                          src={`${currentUrl}/uploads/${item.image}`}
+                          src={`${currentUrlImage}${item.image}`}
                           alt={item.title}
                           className="w-10 h-10 object-cover rounded-full mx-auto"
                         />
