@@ -60,6 +60,7 @@ const sideBarGroupRoutes = {
     adminSideBarMenuPath.MemberAdd,
     adminSideBarMenuPath.MemberUpdate,
   ],
+  Image: [adminSideBarMenuPath.ImageManager],
   Profile: [adminSideBarMenuPath.Profile],
 };
 
@@ -110,6 +111,13 @@ const DashboardSideBar = () => {
             active={isActiveGroup(sideBarGroupRoutes.Product)}
             title="Sản phẩm"
             to={adminSideBarMenuPath.ProductManager}
+            icon={<IconShopingBag></IconShopingBag>}
+          ></DashBoardSideItem>
+
+          <DashBoardSideItem
+            active={isActiveGroup(sideBarGroupRoutes.Image)}
+            title="Hình ảnh"
+            to={adminSideBarMenuPath.ImageManager}
             icon={<IconShopingBag></IconShopingBag>}
           ></DashBoardSideItem>
         </div>

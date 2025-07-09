@@ -51,7 +51,7 @@ const PopupModal = ({
             leaveFrom="scale-100 opacity-100"
             leaveTo="scale-95 opacity-0"
           >
-            <Dialog.Panel className="bg-white dark:bg-gray-800 rounded-xl w-full p-5 shadow-xl  max-w-[900px]">
+            <Dialog.Panel className="bg-white dark:bg-gray-800 rounded-xl w-full p-5 shadow-xl max-w-[1400px]">
               <Dialog.Title className="text-lg font-semibold text-gray-800 dark:text-white">
                 {title}
               </Dialog.Title>
@@ -61,7 +61,7 @@ const PopupModal = ({
               <div className="mt-4 flex justify-end gap-2">
                 <button
                   onClick={onCancel}
-                  className="px-3 py-1.5 text-sm rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 cursor-pointer"
+                  className="px-3 py-1.5 text-sm rounded-md bg-red-200 hover:bg-red-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 cursor-pointer"
                 >
                   {buttonCancelTitle}
                 </button>

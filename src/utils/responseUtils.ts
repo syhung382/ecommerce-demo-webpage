@@ -1,3 +1,5 @@
+import type { deleteFlagUtils, userAuthorCreateUtils } from "./requestUtils";
+
 export interface ResponseResult<T> {
   retCode: number;
   retText: string;
@@ -58,5 +60,10 @@ export interface CategoryRes {
 
 export interface UploadImageRes {
   id: string;
+  imageUrl: string;
+}
+export interface ImageRes extends userAuthorCreateUtils, deleteFlagUtils {
+  id: string;
+  userId: number;
   imageUrl: string;
 }

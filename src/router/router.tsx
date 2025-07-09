@@ -4,6 +4,7 @@ import { lazy } from "react";
 import { adminSideBarMenuPath } from "../utils/constants";
 import CategoryUpdate from "../modules/categories/CategoryUpdate";
 import TagOfProductManager from "../modules/tags/TagOfProductManager";
+import ImageLibrary from "../modules/library/ImageLibrary";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: adminSideBarMenuPath.TagOfProductManager,
         element: <TagOfProductManager />,
+      },
+      {
+        path: adminSideBarMenuPath.ImageManager,
+        element: <ImageLibrary />,
       },
       { path: "*", element: <PageNotFound /> },
     ],

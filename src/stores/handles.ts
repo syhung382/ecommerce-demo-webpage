@@ -8,6 +8,7 @@ import {
   requestCategoryUpdate,
   requestCheckUser,
   requestDeleteImage,
+  requestListImageUser,
   requestLogin,
   requestPing,
   requestTagAddNew,
@@ -22,6 +23,7 @@ import type {
   CategoryFilter,
   CategoryReq,
   FilterListPayload,
+  ImageUserFilter,
   LoginReq,
   TagOfProduct,
   TagOfProductFilter,
@@ -138,11 +140,18 @@ export const handleImageUploadAsync = createAsyncThunk<
     }
   }
 );
-
 export const handleImageDeleteAsync = createAsyncThunk(
   "global/image-delete",
   async (payload: UploadImageRes) => {
     const res = await requestDeleteImage(payload);
+
+    return res.data;
+  }
+);
+export const handleImageGetListByUser = createAsyncThunk(
+  "image/image-user",
+  async (payload: FilterListPayload<ImageUserFilter>) => {
+    const res = await requestListImageUser(payload);
 
     return res.data;
   }

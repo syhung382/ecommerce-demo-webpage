@@ -1,7 +1,7 @@
 export { default as IconPlus } from "./plus.svg?react";
 export { default as IconClose } from "./close.svg?react";
 export { default as IconBox } from "./box.svg?react";
-export { default as IconCheckCircle } from "./check-circle.svg?react";
+export { default as IconCheckCircle } from "./check-circle";
 export { default as IconAlert } from "./alert.svg?react";
 export { default as IconInfo } from "./info.svg?react";
 export { default as IconError } from "./info-error.svg?react";
@@ -74,3 +74,5 @@ export { default as IconChevronUp } from "./chevron-up";
 export { default as IconImageDefault } from "./image-default";
 export { default as IconRequired } from "./required";
 export { default as IconBack } from "./arrow-uturn-left";
+export { default as IconRight } from "./right";
+export { default as IconUpload } from "./upload";

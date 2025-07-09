@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Heading from "../../components/layouts/Heading";
 import DashboardBody from "../../components/layouts/DashboardBody";
 import LoadingComponent from "../../components/layouts/LoadingComponent";
@@ -14,8 +14,8 @@ import DashboardButton from "../../components/buttons/DashboardButton";
 import type {
   Category,
   CategoryRes,
+  ImageRes,
   ResponseResult,
-  UploadImageRes,
 } from "../../utils/responseUtils";
 import {
   handleCategoryAddNewAsync,
@@ -23,11 +23,13 @@ import {
 } from "../../stores/handles";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
-import ImageUpload from "../../components/upload/ImageUpload";
 import CategoryParentDropdown from "./CategoryParentDropdown";
 import RadioInput from "../../components/input/RadioInput";
 import { IconRequired } from "../../components/icons";
 import { LoadingSpinner } from "../../components/loading";
+import ImageSelect from "../../components/upload/ImageSelect";
+import { PopupModal } from "../../components/modals";
+import ImageSelectOne from "../library/ImageSelectOne";
 
 const schema = yup.object({
   title: yup
@@ -43,8 +45,11 @@ const CategoriesAdd = () => {
   const [listItemDropdown, setListItemDropdown] = useState<
     CategoryRes[] | null
   >(null);
-  const [image, setImage] = useState<UploadImageRes>({ id: "", imageUrl: "" });
+  const [isSelectImage, setIsSelectImage] = useState<boolean>(false);
+  const [imageSelected, setImageSelected] = useState<ImageRes>();
   const [status, setStatus] = useState<0 | 1>(0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const imageSelectRef = useRef<any>(null);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -78,8 +83,8 @@ const CategoriesAdd = () => {
     if (itemDropdown) {
       request.parentId = itemDropdown.id;
     }
-    if (image && image.imageUrl) {
-      request.image = image.imageUrl;
+    if (imageSelected && imageSelected.imageUrl) {
+      request.image = imageSelected.imageUrl;
     }
 
     try {
@@ -105,6 +110,25 @@ const CategoriesAdd = () => {
       toast.error("Đã xảy ra lỗi khi thêm danh mục!");
       console.log("error: ", e);
       setLoadingSubmit(false);
+    }
+  };
+
+  const handleToggleSelectImage = () => {
+    if (imageSelected) {
+      setImageSelected(undefined);
+    } else {
+      setIsSelectImage(!isSelectImage);
+    }
+  };
+
+  const handleConfirmImageSelected = (value: ImageRes) => {
+    setImageSelected(value);
+    setIsSelectImage(false);
+  };
+
+  const handlePopupConfirm = () => {
+    if (imageSelectRef.current) {
+      imageSelectRef.current.confirmSelected();
     }
   };
 
@@ -201,7 +225,10 @@ const CategoriesAdd = () => {
 
             <Field>
               <Label>Hình ảnh</Label>
-              <ImageUpload image={image} setImage={setImage}></ImageUpload>
+              <ImageSelect
+                image={imageSelected}
+                onClick={handleToggleSelectImage}
+              ></ImageSelect>
             </Field>
           </div>
           <div className="flex flex-row w-full gap-x-4">
@@ -236,6 +263,20 @@ const CategoriesAdd = () => {
           </Field>
         </form>
       </DashboardBody>
+      <PopupModal
+        isOpen={isSelectImage}
+        onCancel={() => setIsSelectImage(false)}
+        onConfirm={handlePopupConfirm}
+        buttonCancelTitle="Trở lại"
+        buttonConfirmTitle="Chọn ảnh"
+        typeButton="success"
+        title="Chọn ảnh"
+      >
+        <ImageSelectOne
+          ref={imageSelectRef}
+          handleSelectConfirm={handleConfirmImageSelected}
+        ></ImageSelectOne>
+      </PopupModal>
     </>
   );
 };

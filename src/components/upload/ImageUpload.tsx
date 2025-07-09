@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/hook";
-import { currentUrlApi } from "../../stores/api/axiosInstance";
+import { currentUrl } from "../../stores/api/axiosInstance";
 import {
   handleImageDeleteAsync,
   handleImageUploadAsync,
@@ -65,7 +65,7 @@ const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
         <img
           width={30}
           height={0}
-          src={`${currentUrlApi}/Global/get-image?imageUrl=${image.imageUrl}`}
+          src={`${currentUrl}/uploads/${image.imageUrl}`}
         />
 
         <div className="flex-1 flex flex-row gap-x-2 items-center">
@@ -155,9 +155,9 @@ const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
     return (
       <div
         onClick={handleClickAdd}
-        className={`${parrentClass} hover:bg-gray-100 hover:border-blue-400 ${
+        className={`${parrentClass} hover:bg-gray-100 relative hover:border-blue-400 ${
           isLoading ? "" : "cursor-pointer"
-        }  relative`}
+        }`}
       >
         {/* progress bar */}
         {uploadProgress > 0 && uploadProgress < 100 && isLoading && (

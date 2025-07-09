@@ -2,6 +2,7 @@ import type {
   CategoryFilter,
   CategoryReq,
   FilterListPayload,
+  ImageUserFilter,
   LoginReq,
   TagOfProduct,
   TagOfProductFilter,
@@ -82,6 +83,15 @@ export function requestDeleteImage(payload: UploadImageRes) {
   } else {
     return axiosInstance.delete("/Global/delete-image", { data: payload });
   }
+}
+
+export function requestListImageUser(
+  payload: FilterListPayload<ImageUserFilter>
+) {
+  return axiosInstance.post(
+    `/InfoImage/list-user?limit=${payload.limit}&page=${payload.page}`,
+    payload.body
+  );
 }
 
 //tag

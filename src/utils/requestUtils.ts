@@ -11,16 +11,16 @@ export interface DeletedRes {
   notFoundIds?: string[];
 }
 
-interface userAuthorCreate {
+export interface userAuthorCreateUtils {
   createdAt: string;
   createdBy: number;
   updatedAt?: string;
   updatedBy?: number;
 }
-interface deleteFlag {
+export interface deleteFlagUtils {
   deleteFlag: boolean;
 }
-interface status {
+export interface statusUtils {
   status: number;
 }
 
@@ -64,13 +64,16 @@ export interface LoginReq {
 }
 
 //tag
-export interface TagOfProduct extends userAuthorCreate, deleteFlag, status {
+export interface TagOfProduct
+  extends userAuthorCreateUtils,
+    deleteFlagUtils,
+    statusUtils {
   id: string;
   title: string;
   status: number;
 }
 
-export interface TagOfProductReq extends deleteFlag {
+export interface TagOfProductReq extends deleteFlagUtils {
   title: string;
   status: number;
 }
@@ -79,5 +82,13 @@ export interface TagOfProductFilter {
   title?: string;
   status?: number;
   typeSort?: string;
+  isDesc?: boolean;
+}
+
+//image
+export interface ImageUserFilter {
+  startDate: string | null;
+  endDate: string | null;
+  typeSort: string;
   isDesc?: boolean;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Heading from "../../components/layouts/Heading";
 import DashboardBody from "../../components/layouts/DashboardBody";
 import LoadingComponent from "../../components/layouts/LoadingComponent";
@@ -12,8 +12,8 @@ import DashboardButton from "../../components/buttons/DashboardButton";
 import type {
   Category,
   CategoryRes,
+  ImageRes,
   ResponseResult,
-  UploadImageRes,
 } from "../../utils/responseUtils";
 import {
   handleCategoryGetDetailAsync,
@@ -22,11 +22,13 @@ import {
 } from "../../stores/handles";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
-import ImageUpload from "../../components/upload/ImageUpload";
 import CategoryParentDropdown from "./CategoryParentDropdown";
 import RadioInput from "../../components/input/RadioInput";
 import { IconRequired } from "../../components/icons";
 import { LoadingSpinner } from "../../components/loading";
+import ImageSelect from "../../components/upload/ImageSelect";
+import { PopupModal } from "../../components/modals";
+import ImageSelectOne from "../library/ImageSelectOne";
 
 const CategoryUpdate = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,7 +37,9 @@ const CategoryUpdate = () => {
   const [listItemDropdown, setListItemDropdown] = useState<
     CategoryRes[] | null
   >(null);
-  const [image, setImage] = useState<UploadImageRes>({ id: "", imageUrl: "" });
+
+  const [isSelectImage, setIsSelectImage] = useState<boolean>(false);
+  const [imageSelected, setImageSelected] = useState<ImageRes>();
   const [status, setStatus] = useState<0 | 1>(0);
   const [currentCategory, setCurrentCategory] = useState<Category | null>();
 
@@ -44,6 +48,8 @@ const CategoryUpdate = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const imageSelectRef = useRef<any>(null);
 
   const {
     control,
@@ -62,6 +68,25 @@ const CategoryUpdate = () => {
     }
   };
 
+  const handleToggleSelectImage = () => {
+    if (imageSelected) {
+      setImageSelected(undefined);
+    } else {
+      setIsSelectImage(!isSelectImage);
+    }
+  };
+
+  const handlePopupConfirm = () => {
+    if (imageSelectRef.current) {
+      imageSelectRef.current.confirmSelected();
+    }
+  };
+
+  const handleConfirmImageSelected = (value: ImageRes) => {
+    setImageSelected(value);
+    setIsSelectImage(false);
+  };
+
   const handleUpdateSubmit = async (value: Category) => {
     setLoadingSubmit(true);
     if (currentCategory == null) return;
@@ -73,8 +98,8 @@ const CategoryUpdate = () => {
     if (itemDropdown) {
       request.parentId = itemDropdown.id;
     }
-    if (image && image.imageUrl) {
-      request.image = image.imageUrl;
+    if (imageSelected && imageSelected.imageUrl) {
+      request.image = imageSelected.imageUrl;
     }
 
     try {
@@ -156,7 +181,14 @@ const CategoryUpdate = () => {
             setCurrentCategory(resData.data);
             fetchCategory();
             if (resData.data.image)
-              setImage({ ...image, imageUrl: resData.data.image });
+              setImageSelected({
+                id: "",
+                imageUrl: resData.data.image,
+                userId: 0,
+                deleteFlag: false,
+                createdAt: "",
+                createdBy: 0,
+              });
           } else {
             toast.error(resData.retText);
           }
@@ -238,7 +270,10 @@ const CategoryUpdate = () => {
 
             <Field>
               <Label>Hình ảnh</Label>
-              <ImageUpload image={image} setImage={setImage}></ImageUpload>
+              <ImageSelect
+                image={imageSelected}
+                onClick={handleToggleSelectImage}
+              ></ImageSelect>
             </Field>
           </div>
           <div className="flex flex-row w-full gap-x-4">
@@ -273,6 +308,20 @@ const CategoryUpdate = () => {
           </Field>
         </form>
       </DashboardBody>
+      <PopupModal
+        isOpen={isSelectImage}
+        onCancel={() => setIsSelectImage(false)}
+        onConfirm={handlePopupConfirm}
+        buttonCancelTitle="Trở lại"
+        buttonConfirmTitle="Chọn ảnh"
+        typeButton="success"
+        title="Chọn ảnh"
+      >
+        <ImageSelectOne
+          ref={imageSelectRef}
+          handleSelectConfirm={handleConfirmImageSelected}
+        ></ImageSelectOne>
+      </PopupModal>
     </>
   );
 };

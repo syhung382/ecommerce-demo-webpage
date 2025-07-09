@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { currentUrlApi } from "../../stores/api/axiosInstance";
+import { currentUrl } from "../../stores/api/axiosInstance";
 import type { CategoryDetailProps } from "../../utils/interface";
 import { useAppDispatch } from "../../hooks/hook";
 import { handleUserGetFromIdAsync } from "../../stores/handles";
@@ -10,6 +10,7 @@ import { StatusEnum } from "../../utils/constants";
 import { LabelStatus } from "../../components/label";
 import SpanTitle from "../../components/span/SpanTitle";
 import { LoadingSpinner } from "../../components/loading";
+import { formatDate } from "../../utils/handlerUtils";
 
 const CategoryDetail = ({ item }: CategoryDetailProps) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -51,7 +52,7 @@ const CategoryDetail = ({ item }: CategoryDetailProps) => {
       </SpanTitle>
       <div className="mt-2 mx-auto">
         <img
-          src={`${currentUrlApi}/Global/get-image?imageUrl=${item.image}`}
+          src={`${currentUrl}/uploads/${item.image}`}
           alt={item.image}
           className="w-20 h-20 object-cover rounded-lg"
         />
@@ -85,21 +86,7 @@ const CategoryDetail = ({ item }: CategoryDetailProps) => {
         <SpanTitle>
           Ngày tạo:{" "}
           <SpanTitle className="font-bold">
-            {item?.createdAt
-              ? new Date(
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (item.createdAt as any).toDate
-                    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      (item.createdAt as any).toDate()
-                    : item.createdAt
-                ).toLocaleString("vi-VI", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })
-              : ""}
+            {formatDate(item.createdAt)}
           </SpanTitle>
         </SpanTitle>
         <SpanTitle>

@@ -47,6 +47,7 @@ export const adminSideBarMenuPath = {
   ContactManager: "contact/manager",
   ContacDetail: "contact/detail",
   ContacReply: "contact/Reply",
+  ImageManager: "image/manager",
   Setting: "setting",
   Profile: "profile",
 } as const;

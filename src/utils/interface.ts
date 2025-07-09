@@ -1,5 +1,10 @@
 import { type Control, type FieldValues } from "react-hook-form";
-import type { CategoryRes, Pagin, UploadImageRes } from "./responseUtils";
+import type {
+  CategoryRes,
+  ImageRes,
+  Pagin,
+  UploadImageRes,
+} from "./responseUtils";
 import type { Dispatch, SetStateAction } from "react";
 import type {
   FilterListPayload,
@@ -76,6 +81,34 @@ export interface LimitProps {
 export interface ImageUploadProps extends OnClickProps, ChildrenProps {
   image: UploadImageRes;
   setImage: Dispatch<SetStateAction<UploadImageRes>>;
+}
+export interface MenuButtonProps {
+  children?: React.ReactNode;
+  onClick?: () => void;
+  isActive?: boolean;
+}
+export interface ImageItemProps {
+  item: ImageRes;
+  isSelected?: boolean;
+  index?: number;
+  handleSelected: (value: string) => void;
+}
+export interface ImageSelectProps extends OnClickProps {
+  image?: ImageRes;
+}
+export interface ItemSelectedProps {
+  id: string;
+  index: number;
+}
+export interface ItemSelectOneProps {
+  handleSelectConfirm: (value: ImageRes) => void;
+}
+export interface ItemSelectMultiProps {
+  handleSelectConfirm: (value: ImageRes[]) => void;
+}
+export interface UploadComponentProps {
+  type?: "one" | "multi";
+  handleSuccess?: () => void;
 }
 
 //dropdown
