@@ -3,8 +3,9 @@ import { localStorageName } from "../../utils/constants";
 
 const getToken = () => localStorage.getItem(localStorageName.USERTOKEN);
 
-// const proUrl = "https://ecommerce-dev.somee.com/";
-export const currentUrl = "https://localhost:44371";
+// const proUrl = "https://ecommerce-dev.somee.com";
+//"https://localhost:44371"
+export const currentUrl = "https://ecommerce-dev.somee.com";
 export const currentUrlApi = currentUrl + "/api";
 
 export const axiosInstance = axios.create({
