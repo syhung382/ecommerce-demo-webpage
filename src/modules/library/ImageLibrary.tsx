@@ -147,6 +147,23 @@ const ImageLibrary = () => {
           </div>
         </div>
       </div>
+      {pagin && (
+        <div
+          hidden
+          onClick={() =>
+            setHeaderParams({
+              limit: 10,
+              page: 1,
+              body: {
+                startDate: null,
+                endDate: null,
+                isDesc: false,
+                typeSort: "",
+              },
+            })
+          }
+        ></div>
+      )}
     </div>
   );
 };
