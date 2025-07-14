@@ -1,4 +1,4 @@
-import type { LoginRes } from "./responseUtils";
+import type { LoginRes, ProductTagRes } from "./responseUtils";
 
 export interface FilterListPayload<T> {
   body: T;
@@ -11,7 +11,7 @@ export interface DeletedRes {
   notFoundIds?: string[];
 }
 
-export interface userAuthorCreateUtils {
+export interface authorUtils {
   createdAt: string;
   createdBy: number;
   updatedAt?: string;
@@ -22,6 +22,10 @@ export interface deleteFlagUtils {
 }
 export interface statusUtils {
   status: number;
+}
+export interface typeSortUtils {
+  typeSort: string | null;
+  isDesc: boolean;
 }
 
 //category
@@ -34,11 +38,10 @@ export interface CategoryReq {
   deleteFlag?: boolean;
 }
 
-export interface CategoryFilter {
+export interface CategoryFilter extends typeSortUtils {
   title?: string;
   status?: number;
-  typeSort?: string;
-  isDesc?: boolean;
+  noParent?: boolean;
 }
 
 //user
@@ -65,7 +68,7 @@ export interface LoginReq {
 
 //tag
 export interface TagOfProduct
-  extends userAuthorCreateUtils,
+  extends authorUtils,
     deleteFlagUtils,
     statusUtils {
   id: string;
@@ -78,17 +81,40 @@ export interface TagOfProductReq extends deleteFlagUtils {
   status: number;
 }
 
-export interface TagOfProductFilter {
+export interface TagOfProductFilter extends typeSortUtils {
   title?: string;
   status?: number;
-  typeSort?: string;
-  isDesc?: boolean;
 }
 
 //image
-export interface ImageUserFilter {
+export interface ImageUserFilter extends typeSortUtils {
   startDate: string | null;
   endDate: string | null;
-  typeSort: string;
-  isDesc?: boolean;
+}
+export interface InfoProductUpdateImageReq {
+  id?: string;
+  imageId: string;
+  imageUrl?: string;
+}
+
+//product
+export interface ProductReq extends statusUtils {
+  id?: string;
+  categoryId: string;
+  discountId?: string;
+  title: string;
+  description?: string;
+  detail?: string;
+  image?: string;
+  price: number;
+  priceSale?: number;
+  listTagRes?: ProductTagRes[];
+  listProductImage?: InfoProductUpdateImageReq[];
+}
+export interface ProductFilter extends typeSortUtils {
+  categoryId: string | null;
+  title?: string;
+  startPrice: number | null;
+  endPrice: number | null;
+  status: number | null;
 }

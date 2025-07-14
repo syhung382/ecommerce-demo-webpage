@@ -1,10 +1,10 @@
-import { currentUrlImage } from "../../stores/api/axiosInstance";
+import { currentUrlImage } from "../../api/axiosInstance";
 import type { ImageSelectProps } from "../../utils/interface";
 import { IconImageDefault } from "../icons";
 
 const ImageSelect = ({ image, onClick }: ImageSelectProps) => {
   if (image) {
-    const splitUrl = image.imageUrl.split("/");
+    const splitUrl = image.split("/");
     const imageName = splitUrl[splitUrl.length - 1];
     return (
       <div
@@ -12,8 +12,8 @@ const ImageSelect = ({ image, onClick }: ImageSelectProps) => {
         onClick={onClick}
       >
         <img
-          src={`${currentUrlImage}${image.imageUrl}`}
-          alt={image.imageUrl}
+          src={`${currentUrlImage}${image}`}
+          alt={image}
           className="object-cover h-[24px]"
         />
         <span className="flex-1 flex text-sm font-semibold gap-x-1">

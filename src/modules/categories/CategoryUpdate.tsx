@@ -4,22 +4,15 @@ import DashboardBody from "../../components/layouts/DashboardBody";
 import LoadingComponent from "../../components/layouts/LoadingComponent";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import type { CategoryFilter } from "../../utils/requestUtils";
 import { Field } from "../../components/field";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
 import DashboardButton from "../../components/buttons/DashboardButton";
 import type {
   Category,
-  CategoryRes,
   ImageRes,
   ResponseResult,
 } from "../../utils/responseUtils";
-import {
-  handleCategoryGetDetailAsync,
-  handleCategoryNoParentListAsync,
-  handleCategoryUpdateAsync,
-} from "../../stores/handles";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
 import CategoryParentDropdown from "./CategoryParentDropdown";
@@ -29,17 +22,18 @@ import { LoadingSpinner } from "../../components/loading";
 import ImageSelect from "../../components/upload/ImageSelect";
 import { PopupModal } from "../../components/modals";
 import ImageSelectOne from "../library/ImageSelectOne";
+import {
+  handleCategoryGetDetailAsync,
+  handleCategoryUpdateAsync,
+} from "../../api/handle/handleCategories";
 
 const CategoryUpdate = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
-  const [itemDropdown, setItemDropdown] = useState<CategoryRes | null>(null);
-  const [listItemDropdown, setListItemDropdown] = useState<
-    CategoryRes[] | null
-  >(null);
+  const [itemDropdown, setItemDropdown] = useState<Category | null>(null);
 
   const [isSelectImage, setIsSelectImage] = useState<boolean>(false);
-  const [imageSelected, setImageSelected] = useState<ImageRes>();
+  const [imageSelected, setImageSelected] = useState<string>();
   const [status, setStatus] = useState<0 | 1>(0);
   const [currentCategory, setCurrentCategory] = useState<Category | null>();
 
@@ -83,7 +77,7 @@ const CategoryUpdate = () => {
   };
 
   const handleConfirmImageSelected = (value: ImageRes) => {
-    setImageSelected(value);
+    setImageSelected(value.imageUrl);
     setIsSelectImage(false);
   };
 
@@ -98,15 +92,15 @@ const CategoryUpdate = () => {
     if (itemDropdown) {
       request.parentId = itemDropdown.id;
     }
-    if (imageSelected && imageSelected.imageUrl) {
-      request.image = imageSelected.imageUrl;
+    if (imageSelected) {
+      request.image = imageSelected;
     }
 
     try {
       const res = await dispatch(handleCategoryUpdateAsync(request));
       if (res) {
         if (res.meta.requestStatus === "rejected") {
-          toast.error("connecting server error!");
+          toast.error("Connect server error!");
           setLoadingSubmit(false);
         }
         if (res.meta.requestStatus === "fulfilled") {
@@ -128,86 +122,60 @@ const CategoryUpdate = () => {
     }
   };
 
-  async function fetchCategory() {
-    const bodyReq: CategoryFilter = {
-      title: "",
-      status: 0,
-      isDesc: false,
-      typeSort: "",
-    };
+  const handleItemSelected = (value: Category) => {
+    setItemDropdown(value);
+  };
 
-    try {
-      const res = await dispatch(
-        handleCategoryNoParentListAsync(bodyReq)
-      ).unwrap();
-      if (res) {
-        if (res.retCode === 0) {
-          if (itemDropdown || currentCategory) {
-            let newList = res.data as Category[];
+  async function fetchData() {
+    if (!currentId) return;
 
-            if (itemDropdown)
-              newList = newList.filter((f) => f.id != itemDropdown.id);
-            if (currentCategory)
-              newList = newList.filter((f) => f.id != currentCategory.id);
+    const res = await dispatch(handleCategoryGetDetailAsync(currentId));
 
-            setListItemDropdown(newList);
-          } else {
-            setListItemDropdown(res.data);
+    if (res) {
+      if (res.meta.requestStatus === "rejected") {
+        toast.error("Connect server error!");
+      }
+      if (res.meta.requestStatus === "fulfilled") {
+        const resData = res.payload as ResponseResult<Category>;
+        if (resData.retCode === 0) {
+          reset(resData.data);
+          setCurrentCategory(resData.data);
+          if (resData.data.parentId) {
+            fetchParent(resData.data.parentId);
           }
+          if (resData.data.image) setImageSelected(resData.data.image);
         } else {
-          toast.error(res.retText);
+          toast.error(resData.retText);
         }
       }
-    } catch (e) {
-      toast.error("Lỗi không xác định");
-      console.log("error: ", e);
     }
+
+    setLoading(false);
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      if (!currentId) return;
+  const fetchParent = async (id: string) => {
+    if (!id) return;
 
-      const res = await dispatch(handleCategoryGetDetailAsync(currentId));
+    const res = await dispatch(handleCategoryGetDetailAsync(id));
 
-      if (res) {
-        if (res.meta.requestStatus === "rejected") {
-          toast.error("connecting server error!");
-        }
-        if (res.meta.requestStatus === "fulfilled") {
-          const resData = res.payload as ResponseResult<Category>;
-          if (resData.retCode === 0) {
-            reset(resData.data);
-            setCurrentCategory(resData.data);
-            fetchCategory();
-            if (resData.data.image)
-              setImageSelected({
-                id: "",
-                imageUrl: resData.data.image,
-                userId: 0,
-                deleteFlag: false,
-                createdAt: "",
-                createdBy: 0,
-              });
-          } else {
-            toast.error(resData.retText);
-          }
+    if (res) {
+      if (res.meta.requestStatus === "rejected") {
+        toast.error("Connect server error!");
+      }
+      if (res.meta.requestStatus === "fulfilled") {
+        const resData = res.payload as ResponseResult<Category>;
+        if (resData.retCode === 0) {
+          setItemDropdown(resData.data);
+        } else {
+          toast.error(resData.retText);
         }
       }
-
-      setLoading(false);
     }
-    fetchData();
-  }, [currentId]);
+  };
 
   useEffect(() => {
-    if (!currentCategory?.parentId || !listItemDropdown?.length) return;
-
-    const found = listItemDropdown.find(
-      (x) => x.id === currentCategory.parentId
-    );
-    if (found) setItemDropdown(found);
-  }, [listItemDropdown, currentCategory?.parentId]);
+    fetchData();
+  }, [currentId]);
 
   useEffect(() => {
     document.title = "Quản trị | Thêm mới danh mục";
@@ -263,8 +231,7 @@ const CategoryUpdate = () => {
               </Label>
               <CategoryParentDropdown
                 itemDropdown={itemDropdown}
-                listItemDropdown={listItemDropdown}
-                setItemDropdown={setItemDropdown}
+                handleItemSelected={handleItemSelected}
               ></CategoryParentDropdown>
             </Field>
 

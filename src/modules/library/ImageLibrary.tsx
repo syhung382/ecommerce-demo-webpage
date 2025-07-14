@@ -12,15 +12,14 @@ import type {
 } from "../../utils/requestUtils";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleImageGetListByUser } from "../../stores/handles";
 import { IconUpload } from "../../components/icons";
 import MenuButton from "./MenuButton";
 import UploadComponent from "./UploadComponent";
 import ImageItem from "./ImageItem";
-import type { ItemSelectedProps } from "../../utils/interface";
+import { handleImageGetListByUser } from "../../api/handle/handleImages";
 
 const ImageLibrary = () => {
-  const [itemSelected, setItemSelected] = useState<ItemSelectedProps[]>([]);
+  const [itemSelected, setItemSelected] = useState<ImageRes[]>([]);
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [dataList, setDataList] = useState<ImageRes[]>([]);
   const [headerParams, setHeaderParams] = useState<
@@ -39,12 +38,12 @@ const ImageLibrary = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleSelected = (value: string) => {
+  const handleSelected = (value: ImageRes) => {
     setItemSelected((prev) => {
-      const isExisted = prev.find((item) => item.id === value);
+      const isExisted = prev.find((item) => item.id === value.id);
 
       if (isExisted) {
-        const newList = prev.filter((item) => item.id !== value);
+        const newList = prev.filter((item) => item.id !== value.id);
 
         const updatedList = newList.map((item, idx) => ({
           ...item,
@@ -53,12 +52,7 @@ const ImageLibrary = () => {
 
         return updatedList;
       } else {
-        const newItem: ItemSelectedProps = {
-          id: value,
-          index: prev.length,
-        };
-
-        return [...prev, newItem];
+        return [...prev, value];
       }
     });
   };
@@ -70,7 +64,7 @@ const ImageLibrary = () => {
       const res = await dispatch(handleImageGetListByUser(payload));
       if (res) {
         if (res.meta.requestStatus === "rejected") {
-          toast.error("connecting server error!");
+          toast.error("Connect server error!");
         }
         if (res.meta.requestStatus === "fulfilled") {
           const resData = res.payload as ResponseResult<
@@ -134,11 +128,14 @@ const ImageLibrary = () => {
           <div className=" grid grid-cols-6 p-2 gap-3">
             {dataList.map((item) => {
               const selectedItem = itemSelected.find((f) => f.id === item.id);
+              const selectedIndex = itemSelected.findIndex(
+                (f) => f.id === item.id
+              );
               return (
                 <ImageItem
                   handleSelected={handleSelected}
                   item={item}
-                  index={selectedItem && selectedItem?.index + 1}
+                  index={selectedIndex && selectedIndex + 1}
                   key={item.id}
                   isSelected={!!selectedItem}
                 ></ImageItem>

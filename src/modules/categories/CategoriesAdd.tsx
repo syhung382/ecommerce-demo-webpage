@@ -1,26 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import Heading from "../../components/layouts/Heading";
 import DashboardBody from "../../components/layouts/DashboardBody";
-import LoadingComponent from "../../components/layouts/LoadingComponent";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import type { CategoryFilter, CategoryReq } from "../../utils/requestUtils";
+import type { CategoryReq } from "../../utils/requestUtils";
 import { Field } from "../../components/field";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
 import DashboardButton from "../../components/buttons/DashboardButton";
 import type {
   Category,
-  CategoryRes,
   ImageRes,
   ResponseResult,
 } from "../../utils/responseUtils";
-import {
-  handleCategoryAddNewAsync,
-  handleCategoryNoParentListAsync,
-} from "../../stores/handles";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
 import CategoryParentDropdown from "./CategoryParentDropdown";
@@ -30,6 +24,7 @@ import { LoadingSpinner } from "../../components/loading";
 import ImageSelect from "../../components/upload/ImageSelect";
 import { PopupModal } from "../../components/modals";
 import ImageSelectOne from "../library/ImageSelectOne";
+import { handleCategoryAddNewAsync } from "../../api/handle/handleCategories";
 
 const schema = yup.object({
   title: yup
@@ -39,14 +34,10 @@ const schema = yup.object({
 });
 
 const CategoriesAdd = () => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
-  const [itemDropdown, setItemDropdown] = useState<CategoryRes | null>(null);
-  const [listItemDropdown, setListItemDropdown] = useState<
-    CategoryRes[] | null
-  >(null);
+  const [itemDropdown, setItemDropdown] = useState<Category | null>(null);
   const [isSelectImage, setIsSelectImage] = useState<boolean>(false);
-  const [imageSelected, setImageSelected] = useState<ImageRes>();
+  const [imageSelected, setImageSelected] = useState<string>();
   const [status, setStatus] = useState<0 | 1>(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const imageSelectRef = useRef<any>(null);
@@ -83,15 +74,15 @@ const CategoriesAdd = () => {
     if (itemDropdown) {
       request.parentId = itemDropdown.id;
     }
-    if (imageSelected && imageSelected.imageUrl) {
-      request.image = imageSelected.imageUrl;
+    if (imageSelected) {
+      request.image = imageSelected;
     }
 
     try {
       const res = await dispatch(handleCategoryAddNewAsync(request));
       if (res) {
         if (res.meta.requestStatus === "rejected") {
-          toast.error("connecting server error!");
+          toast.error("Connect server error!");
           setLoadingSubmit(false);
         }
         if (res.meta.requestStatus === "fulfilled") {
@@ -122,7 +113,7 @@ const CategoriesAdd = () => {
   };
 
   const handleConfirmImageSelected = (value: ImageRes) => {
-    setImageSelected(value);
+    setImageSelected(value.imageUrl);
     setIsSelectImage(false);
   };
 
@@ -132,47 +123,13 @@ const CategoriesAdd = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchCategory() {
-      const bodyReq: CategoryFilter = {
-        title: "",
-        status: 0,
-        isDesc: false,
-        typeSort: "",
-      };
-
-      try {
-        const res = await dispatch(
-          handleCategoryNoParentListAsync(bodyReq)
-        ).unwrap();
-        if (res) {
-          if (res.retCode === 0) {
-            if (itemDropdown) {
-              const newList = res.data as Category[];
-              const newRes = newList.filter((f) => f.id != itemDropdown.id);
-              setListItemDropdown(newRes);
-            } else {
-              setListItemDropdown(res.data);
-            }
-
-            setLoading(false);
-          } else {
-            toast.error(res.retText);
-          }
-        }
-      } catch (e) {
-        toast.error("Lỗi không xác định");
-        console.log("error: ", e);
-      }
-    }
-    fetchCategory();
-  }, []);
+  const handleItemSelected = (value: Category) => {
+    setItemDropdown(value);
+  };
 
   useEffect(() => {
     document.title = "Quản trị | Thêm mới danh mục";
   }, []);
-
-  if (loading) return <LoadingComponent></LoadingComponent>;
 
   return (
     <>
@@ -218,8 +175,7 @@ const CategoriesAdd = () => {
               </Label>
               <CategoryParentDropdown
                 itemDropdown={itemDropdown}
-                listItemDropdown={listItemDropdown}
-                setItemDropdown={setItemDropdown}
+                handleItemSelected={handleItemSelected}
               ></CategoryParentDropdown>
             </Field>
 

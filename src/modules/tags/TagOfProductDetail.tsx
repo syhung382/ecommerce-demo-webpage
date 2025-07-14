@@ -5,10 +5,10 @@ import type { TagOfProductDetailProps } from "../../utils/interface";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
 import type { ResponseResult } from "../../utils/responseUtils";
-import { handleUserGetFromIdAsync } from "../../stores/handles";
 import SpanTitle from "../../components/span/SpanTitle";
 import { StatusEnum } from "../../utils/constants";
 import { LabelStatus } from "../../components/label";
+import { handleUserGetFromIdAsync } from "../../api/handle/handleUsers";
 
 const TagOfProductDetail = ({ data }: TagOfProductDetailProps) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const TagOfProductDetail = ({ data }: TagOfProductDetailProps) => {
 
         if (res) {
           if (res.meta.requestStatus === "rejected") {
-            toast.error("Connecting server error!");
+            toast.error("Connect server error!");
             setLoading(false);
           }
           if (res.meta.requestStatus === "fulfilled") {

@@ -1,4 +1,4 @@
-import type { deleteFlagUtils, userAuthorCreateUtils } from "./requestUtils";
+import type { authorUtils, deleteFlagUtils, statusUtils } from "./requestUtils";
 
 export interface ResponseResult<T> {
   retCode: number;
@@ -30,6 +30,7 @@ export interface LoginRes {
   token?: string;
 }
 
+//category
 export interface Category {
   id: string;
   parentId?: string;
@@ -58,12 +59,52 @@ export interface CategoryRes {
   updatedBy?: number;
 }
 
+//image
 export interface UploadImageRes {
   id: string;
   imageUrl: string;
 }
-export interface ImageRes extends userAuthorCreateUtils, deleteFlagUtils {
+export interface ImageRes extends authorUtils, deleteFlagUtils {
   id: string;
-  userId: number;
+  imageUrl: string;
+}
+export interface ImageInfo {
+  fileName: string;
+  sizeInBytes: number;
+  sizeInKb: number;
+  contentType: string;
+  relativePath: string;
+}
+
+//product
+export interface Product extends statusUtils, deleteFlagUtils, authorUtils {
+  id: string;
+  categoryId: string;
+  discountId?: string;
+  title: string;
+  description?: string;
+  detail?: string;
+  image?: string;
+  price: number;
+  priceSale?: number;
+}
+export interface ProductRes extends Omit<Product, "categoryId"> {
+  category: Category;
+  listProductTag?: ProductTagRes[];
+  listProductImage?: ProductImage[];
+}
+
+//ProductTag
+export interface ProductTagRes {
+  id?: string;
+  productId?: string;
+  tagOfProductId?: string;
+  tagTitle?: string;
+}
+
+//ProductImage
+export interface ProductImage extends deleteFlagUtils, authorUtils {
+  id: string;
+  imageId: string;
   imageUrl: string;
 }

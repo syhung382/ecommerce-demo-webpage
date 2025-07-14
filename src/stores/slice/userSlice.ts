@@ -1,7 +1,8 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import type { UserSliceProps } from "../../utils/requestUtils";
-import { handleLoginAsync, handleUserCheckAsync } from "../handles";
+import { handleLoginAsync } from "../../api/handle/handles";
 import { localStorageName, RetCodeEnum } from "../../utils/constants";
+import { handleUserCheckAsync } from "../../api/handle/handleUsers";
 
 const initialState: UserSliceProps = {
   isLoading: false,

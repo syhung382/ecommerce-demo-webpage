@@ -6,11 +6,19 @@ const ButtonSort = ({ value, onClick }: ButtonSortProps) => {
     <div onClick={onClick} className="px-1 flex flex-col gap-1 cursor-pointer">
       <IconAngleUp
         aria-label="Sắp xếp"
-        className={`${value === "DESC" ? "text-gray-400" : "text-gray-600"}`}
+        className={`${
+          value === "DESC"
+            ? "text-gray-600 dark:text-gray-400"
+            : "text-gray-400 dark:text-gray-600"
+        }`}
       />
       <IconAngleDown
         aria-label="Sắp xếp"
-        className={`${value === "ASC" ? "text-gray-400" : "text-gray-600"}`}
+        className={`${
+          value === "ASC"
+            ? "text-gray-600 dark:text-gray-600"
+            : "text-gray-400  dark:text-gray-600"
+        }`}
       />
     </div>
   );

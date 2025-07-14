@@ -8,11 +8,11 @@ import { useForm } from "react-hook-form";
 import type { TagOfProductReq } from "../../utils/requestUtils";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleTagOfProductAddNewAsync } from "../../stores/handles";
 import { toast } from "react-toastify";
 import type { ResponseResult } from "../../utils/responseUtils";
 import type { OnClickProps } from "../../utils/interface";
 import { LoadingSpinner } from "../../components/loading";
+import { handleTagOfProductAddNewAsync } from "../../api/handle/handleTags";
 
 const TagOfProductAdd = ({ onClick }: OnClickProps) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -50,7 +50,7 @@ const TagOfProductAdd = ({ onClick }: OnClickProps) => {
 
     if (res) {
       if (res.meta.requestStatus === "rejected") {
-        toast.error("Connecting server error!");
+        toast.error("Connect server error!");
       }
 
       if (res.meta.requestStatus === "fulfilled") {

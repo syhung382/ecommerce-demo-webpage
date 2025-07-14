@@ -10,23 +10,25 @@ import type {
   ResponseResult,
 } from "../../utils/responseUtils";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleImageGetListByUser } from "../../stores/handles";
 import { toast } from "react-toastify";
 import { IconUpload } from "../../components/icons";
 import MenuButton from "./MenuButton";
 import { AnimatePresence, motion } from "framer-motion";
 import UploadComponent from "./UploadComponent";
 import ImageItem from "./ImageItem";
-import type {
-  ItemSelectedProps,
-  ItemSelectMultiProps,
-} from "../../utils/interface";
+import type { ItemSelectMultiProps } from "../../utils/interface";
 import { LoadingSpinner } from "../../components/loading";
+import { handleImageGetListByUser } from "../../api/handle/handleImages";
 
 const ImageSelectMulti = forwardRef(
-  ({ handleSelectConfirm }: ItemSelectMultiProps, ref) => {
+  (
+    { handleSelectConfirm, defaultImageSelected }: ItemSelectMultiProps,
+    ref
+  ) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [itemSelected, setItemSelected] = useState<ItemSelectedProps[]>([]);
+    const [itemSelected, setItemSelected] = useState<ImageRes[]>(
+      defaultImageSelected ? defaultImageSelected : []
+    );
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [dataList, setDataList] = useState<ImageRes[]>([]);
     const [headerParams, setHeaderParams] = useState<
@@ -45,12 +47,12 @@ const ImageSelectMulti = forwardRef(
 
     const dispatch = useAppDispatch();
 
-    const handleSelected = (value: string) => {
+    const handleSelected = (value: ImageRes) => {
       setItemSelected((prev) => {
-        const isExisted = prev.find((item) => item.id === value);
+        const isExisted = prev.find((item) => item.id === value.id);
 
         if (isExisted) {
-          const newList = prev.filter((item) => item.id !== value);
+          const newList = prev.filter((item) => item.id !== value.id);
 
           const updatedList = newList.map((item, idx) => ({
             ...item,
@@ -59,12 +61,7 @@ const ImageSelectMulti = forwardRef(
 
           return updatedList;
         } else {
-          const newItem: ItemSelectedProps = {
-            id: value,
-            index: prev.length,
-          };
-
-          return [...prev, newItem];
+          return [...prev, value];
         }
       });
     };
@@ -106,7 +103,7 @@ const ImageSelectMulti = forwardRef(
         const res = await dispatch(handleImageGetListByUser(payload));
         if (res) {
           if (res.meta.requestStatus === "rejected") {
-            toast.error("connecting server error!");
+            toast.error("Connect server error!");
           }
           if (res.meta.requestStatus === "fulfilled") {
             const resData = res.payload as ResponseResult<
@@ -177,15 +174,18 @@ const ImageSelectMulti = forwardRef(
               )}
             </AnimatePresence>
 
-            <div className=" grid grid-cols-6 p-2 gap-3">
+            <div className=" grid grid-cols-5 p-2 gap-3">
               {dataList.map((item) => {
                 const selectedItem = itemSelected.find((f) => f.id === item.id);
+                const selectedIndex = itemSelected.findIndex(
+                  (f) => f.id === item.id
+                );
                 return (
                   <ImageItem
                     handleSelected={handleSelected}
                     item={item}
                     key={item.id}
-                    index={selectedItem && selectedItem?.index + 1}
+                    index={selectedItem && selectedIndex + 1}
                     isSelected={!!selectedItem}
                   ></ImageItem>
                 );

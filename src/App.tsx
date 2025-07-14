@@ -3,7 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./hooks/hook";
 import { localStorageName } from "./utils/constants";
 import { router } from "./router/router";
-import { handleUserCheckAsync } from "./stores/handles";
+import { handleUserCheckAsync } from "./api/handle/handleUsers";
 
 function App() {
   const darkMode = useAppSelector((state) => state.global.darkMode);

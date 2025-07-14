@@ -18,7 +18,6 @@ import type {
 } from "../../utils/requestUtils";
 import { useAppDispatch } from "../../hooks/hook";
 import { toast } from "react-toastify";
-import { currentUrlImage } from "../../stores/api/axiosInstance";
 import LabelStatus from "../../components/label/LabelStatus";
 import ButtonSort from "../../components/buttons/ButtonSort";
 import { ButtonSearch } from "../../components/buttons";
@@ -26,12 +25,13 @@ import debounce from "lodash/debounce";
 import Paging from "../../paging/Paging";
 import { Limit } from "../../paging";
 import LoadingSkeleton from "../../components/loading/LoadingSkeleton";
+import { ConfirmDialog, PopupModal } from "../../components/modals";
+import CategoryDetail from "./CategoryDetail";
 import {
   handleCategoryDeleteAsync,
   handleCategoryGetListAsync,
-} from "../../stores/handles";
-import { ConfirmDialog, PopupModal } from "../../components/modals";
-import CategoryDetail from "./CategoryDetail";
+} from "../../api/handle/handleCategories";
+import { currentUrlImage } from "../../api/axiosInstance";
 
 const CategoriesManager = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -154,7 +154,7 @@ const CategoriesManager = () => {
 
     if (res) {
       if (res.meta.requestStatus === "rejected") {
-        toast.error("connecting server error!");
+        toast.error("Connect server error!");
         setLoadingSubmit(false);
       }
       if (res.meta.requestStatus === "fulfilled") {
@@ -343,7 +343,9 @@ const CategoriesManager = () => {
                       />
                       <ActionEdit
                         onClick={() =>
-                          navigate(`../category/update?id=${item.id}`)
+                          navigate(
+                            `../${adminSideBarMenuPath.CategoryUpdate}?id=${item.id}`
+                          )
                         }
                       />
                       <ActionDelete

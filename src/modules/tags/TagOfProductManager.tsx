@@ -15,8 +15,8 @@ import type {
   ResponseResult,
 } from "../../utils/responseUtils";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleTagOfProductList } from "../../stores/handles";
 import { toast } from "react-toastify";
+import { handleTagOfProductListAsync } from "../../api/handle/handleTags";
 
 const TagOfProductManager = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,7 +45,7 @@ const TagOfProductManager = () => {
 
     try {
       const res = (await dispatch(
-        handleTagOfProductList(payload)
+        handleTagOfProductListAsync(payload)
       ).unwrap()) as ResponseResult<ResponseList<TagOfProduct[]>>;
       if (res) {
         if (res.retCode === 0) {

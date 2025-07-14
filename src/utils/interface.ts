@@ -1,8 +1,12 @@
 import { type Control, type FieldValues } from "react-hook-form";
 import type {
+  Category,
   CategoryRes,
   ImageRes,
   Pagin,
+  ProductImage,
+  ProductRes,
+  ProductTagRes,
   UploadImageRes,
 } from "./responseUtils";
 import type { Dispatch, SetStateAction } from "react";
@@ -11,6 +15,7 @@ import type {
   TagOfProduct,
   TagOfProductFilter,
 } from "./requestUtils";
+import type { NavigateFunction } from "react-router-dom";
 
 //base
 export interface ChildrenProps {
@@ -91,10 +96,10 @@ export interface ImageItemProps {
   item: ImageRes;
   isSelected?: boolean;
   index?: number;
-  handleSelected: (value: string) => void;
+  handleSelected: (value: ImageRes) => void;
 }
 export interface ImageSelectProps extends OnClickProps {
-  image?: ImageRes;
+  image?: string;
 }
 export interface ItemSelectedProps {
   id: string;
@@ -105,6 +110,7 @@ export interface ItemSelectOneProps {
 }
 export interface ItemSelectMultiProps {
   handleSelectConfirm: (value: ImageRes[]) => void;
+  defaultImageSelected?: ImageRes[];
 }
 export interface UploadComponentProps {
   type?: "one" | "multi";
@@ -131,9 +137,9 @@ export type SearchProps = {
 
 //category
 export interface CategoryParentProps {
-  itemDropdown: CategoryRes | null;
-  listItemDropdown: CategoryRes[] | null;
-  setItemDropdown: Dispatch<SetStateAction<CategoryRes | null>>;
+  selectType?: "category" | "product";
+  itemDropdown: Category | null;
+  handleItemSelected: (value: CategoryRes) => void;
 }
 export interface CategoryDetailProps {
   item: CategoryRes;
@@ -196,8 +202,14 @@ export interface ConfirmDialogProps {
   typeButton?: "danger" | "success" | "info";
   isLoading?: boolean;
 }
-
 export interface ModalPopupProps extends ChildrenProps, ConfirmDialogProps {}
+export interface ModalViewImageProps {
+  currentIndex: number;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+  list: ProductImage[];
+}
 
 //span
 export interface SpanTitleProps extends ChildrenProps {
@@ -225,4 +237,29 @@ export interface TagOfProductTableProps {
 }
 export interface TagOfProductUpdateProps extends OnClickProps {
   id: string;
+}
+export interface TagOfProductDropdownProps {
+  itemDropdown: ProductTagRes[] | null;
+  handleItemSelected: (value: TagOfProduct) => void;
+}
+
+//product
+export interface ProductProps {
+  id: string | null;
+  handleSuccess: () => void;
+}
+export interface ProductTableProps {
+  navigate: NavigateFunction;
+}
+export interface TableItemProps {
+  item: ProductRes;
+  index: number | null;
+  navigate: NavigateFunction;
+  handleDelete?: (id: string | null) => void;
+}
+
+//editor
+export interface TinyEditorProps {
+  value: string;
+  onChange: (value: string) => void;
 }

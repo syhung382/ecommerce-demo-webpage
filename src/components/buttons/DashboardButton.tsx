@@ -23,7 +23,7 @@ const DashboardButton = ({
       break;
     case "primaryOutline":
       color =
-        "bg-gray-50 dark:bg-gray-700 cursor-pointer text-green-400 dark:text-green-900 border border-green-400 dark:border-green-900";
+        "bg-gray-50 dark:bg-gray-700 cursor-pointer text-green-400 dark:text-green-700 dark:hover:bg-gray-600 border border-green-400 dark:border-green-900";
       break;
     default:
       color = "bg-blue-400 dark:bg-gray-700 cursor-pointer text-white";

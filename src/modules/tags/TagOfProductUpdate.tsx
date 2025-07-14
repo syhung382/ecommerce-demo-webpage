@@ -11,15 +11,15 @@ import {
 } from "../../utils/requestUtils";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/hook";
-import {
-  handleTagOfProductDetail,
-  handleTagOfProductUpdateAsync,
-} from "../../stores/handles";
 import { toast } from "react-toastify";
 import type { ResponseResult } from "../../utils/responseUtils";
 import { LoadingSpinner } from "../../components/loading";
 import type { TagOfProductUpdateProps } from "../../utils/interface";
 import { StatusEnum } from "../../utils/constants";
+import {
+  handleTagOfProductDetailAsync,
+  handleTagOfProductUpdateAsync,
+} from "../../api/handle/handleTags";
 
 const TagOfProductUpdate = ({ id, onClick }: TagOfProductUpdateProps) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const TagOfProductUpdate = ({ id, onClick }: TagOfProductUpdateProps) => {
 
     if (res) {
       if (res.meta.requestStatus === "rejected") {
-        toast.error("Connecting server error!");
+        toast.error("Connect server error!");
       }
 
       if (res.meta.requestStatus === "fulfilled") {
@@ -85,10 +85,10 @@ const TagOfProductUpdate = ({ id, onClick }: TagOfProductUpdateProps) => {
     setLoading(true);
 
     try {
-      const res = await dispatch(handleTagOfProductDetail(id));
+      const res = await dispatch(handleTagOfProductDetailAsync(id));
       if (res) {
         if (res.meta.requestStatus === "rejected") {
-          toast.error("Connecting server error!");
+          toast.error("Connect server error!");
         }
         if (res.meta.requestStatus === "fulfilled") {
           const resData = res.payload as ResponseResult<TagOfProduct>;

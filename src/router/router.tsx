@@ -2,9 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 
 import { adminSideBarMenuPath } from "../utils/constants";
-import CategoryUpdate from "../modules/categories/CategoryUpdate";
-import TagOfProductManager from "../modules/tags/TagOfProductManager";
-import ImageLibrary from "../modules/library/ImageLibrary";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -16,10 +13,25 @@ const DashboardLayout = lazy(
   () => import("../components/layouts/DashboardLayout")
 );
 const Dashboard = lazy(() => import("../pages/Dashboard"));
+
 const CategoriesManager = lazy(
   () => import("../modules/categories/CategoriesManager")
 );
 const CategoriesAdd = lazy(() => import("../modules/categories/CategoriesAdd"));
+const CategoryUpdate = lazy(
+  () => import("../modules/categories/CategoryUpdate")
+);
+
+const TagOfProductManager = lazy(
+  () => import("../modules/tags/TagOfProductManager")
+);
+
+const ImageLibrary = lazy(() => import("../modules/library/ImageLibrary"));
+
+const ProductManager = lazy(() => import("../modules/product/ProductManager"));
+const ProductAdd = lazy(() => import("../modules/product/ProductAdd"));
+const ProductUpdate = lazy(() => import("../modules/product/ProductUpdate"));
+const ProductDetail = lazy(() => import("../modules/product/ProductDetail"));
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +71,22 @@ export const router = createBrowserRouter([
       {
         path: adminSideBarMenuPath.ImageManager,
         element: <ImageLibrary />,
+      },
+      {
+        path: adminSideBarMenuPath.ProductManager,
+        element: <ProductManager />,
+      },
+      {
+        path: adminSideBarMenuPath.ProductAdd,
+        element: <ProductAdd />,
+      },
+      {
+        path: adminSideBarMenuPath.ProductUpdate,
+        element: <ProductUpdate />,
+      },
+      {
+        path: adminSideBarMenuPath.ProductDetail,
+        element: <ProductDetail />,
       },
       { path: "*", element: <PageNotFound /> },
     ],

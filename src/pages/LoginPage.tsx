@@ -7,7 +7,7 @@ import { Label } from "../components/label";
 import { Button } from "../components/buttons";
 import type { LoginReq } from "../utils/requestUtils";
 import { useAppDispatch, useAppSelector } from "../hooks/hook";
-import { handleLoginAsync } from "../stores/handles";
+import { handleLoginAsync } from "../api/handle/handles";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";

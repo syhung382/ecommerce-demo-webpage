@@ -10,7 +10,6 @@ import type {
   ResponseResult,
 } from "../../utils/responseUtils";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleImageGetListByUser } from "../../stores/handles";
 import { toast } from "react-toastify";
 import { IconUpload } from "../../components/icons";
 import MenuButton from "./MenuButton";
@@ -19,11 +18,12 @@ import UploadComponent from "./UploadComponent";
 import ImageItem from "./ImageItem";
 import type { ItemSelectOneProps } from "../../utils/interface";
 import { LoadingSpinner } from "../../components/loading";
+import { handleImageGetListByUser } from "../../api/handle/handleImages";
 
 const ImageSelectOne = forwardRef(
   ({ handleSelectConfirm }: ItemSelectOneProps, ref) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [itemSelected, setItemSelected] = useState<string>("");
+    const [itemSelected, setItemSelected] = useState<ImageRes>();
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [dataList, setDataList] = useState<ImageRes[]>([]);
     const [headerParams, setHeaderParams] = useState<
@@ -42,18 +42,17 @@ const ImageSelectOne = forwardRef(
 
     const dispatch = useAppDispatch();
 
-    const handleSelected = (value: string) => {
-      if (value === itemSelected) {
-        setItemSelected("");
+    const handleSelected = (value: ImageRes) => {
+      if (value.id === itemSelected?.id) {
+        setItemSelected(undefined);
       } else {
         setItemSelected(value);
       }
     };
 
     const handleConfirm = () => {
-      const selectedImage = dataList.find((item) => item.id === itemSelected);
-      if (selectedImage) {
-        handleSelectConfirm(selectedImage);
+      if (itemSelected) {
+        handleSelectConfirm(itemSelected);
       }
     };
     useImperativeHandle(ref, () => ({
@@ -85,7 +84,7 @@ const ImageSelectOne = forwardRef(
         const res = await dispatch(handleImageGetListByUser(payload));
         if (res) {
           if (res.meta.requestStatus === "rejected") {
-            toast.error("connecting server error!");
+            toast.error("Connect server error!");
           }
           if (res.meta.requestStatus === "fulfilled") {
             const resData = res.payload as ResponseResult<
@@ -153,9 +152,9 @@ const ImageSelectOne = forwardRef(
               )}
             </AnimatePresence>
 
-            <div className=" grid grid-cols-6 p-2 gap-3">
+            <div className=" grid grid-cols-5 p-2 gap-3">
               {dataList.map((item) => {
-                const selectedItem = item.id === itemSelected;
+                const selectedItem = item.id === itemSelected?.id;
                 return (
                   <ImageItem
                     handleSelected={handleSelected}

@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { IconImageDefault } from "../../components/icons";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleImageUploadAsync } from "../../stores/handles";
 import { toast } from "react-toastify";
 import type { UploadComponentProps } from "../../utils/interface";
+import { handleImageUploadAsync } from "../../api/handle/handleImages";
 
 const UploadComponent = ({
   type = "one",
@@ -65,7 +65,7 @@ const UploadComponent = ({
 
         if (res) {
           if (res.meta.requestStatus === "rejected") {
-            toast.error("connecting server error!");
+            toast.error("Connect server error!");
           }
           if (res.meta.requestStatus === "fulfilled") {
             if (handleSuccess) handleSuccess();
@@ -122,11 +122,9 @@ const UploadComponent = ({
       e: React.ChangeEvent<HTMLInputElement>
     ) => {
       //lấy danh sách file
-      console.log(e.target.files);
       const fileList = e.target.files;
       if (!fileList || isLoading) return;
       setIsLoading(true);
-      console.log("chạy", fileList);
 
       //kiểm tra
       const fileArray = Array.from(fileList).filter(validateFile);
@@ -134,13 +132,11 @@ const UploadComponent = ({
         setIsLoading(false);
         return;
       }
-      console.log("kiểm tra xong");
 
       try {
         for (const file of fileArray) {
           const formData = new FormData();
           formData.append("File", file);
-          console.log("upload");
 
           const res = await dispatch(
             handleImageUploadAsync({

@@ -11,10 +11,10 @@ import TagOfProductUpdate from "./TagOfProductUpdate";
 import { LoadingSpinner } from "../../components/loading";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleTagDeleteAsync } from "../../stores/handles";
 import type { ResponseResult } from "../../utils/responseUtils";
 import { type DeletedRes, type TagOfProduct } from "../../utils/requestUtils";
 import TagOfProductDetail from "./TagOfProductDetail";
+import { handleTagDeleteAsync } from "../../api/handle/handleTags";
 
 const TagOfProductTable = ({
   loading,
@@ -82,7 +82,7 @@ const TagOfProductTable = ({
       const res = await dispatch(handleTagDeleteAsync(selectedId));
       if (res) {
         if (res.meta.requestStatus === "rejected") {
-          toast.error("Connecting server error!");
+          toast.error("Connect server error!");
         }
         if (res.meta.requestStatus === "fulfilled") {
           const resData = res.payload as ResponseResult<DeletedRes>;

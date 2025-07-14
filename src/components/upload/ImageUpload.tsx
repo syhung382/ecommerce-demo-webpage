@@ -1,14 +1,14 @@
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/hook";
-import { currentUrl } from "../../stores/api/axiosInstance";
-import {
-  handleImageDeleteAsync,
-  handleImageUploadAsync,
-} from "../../stores/handles";
 import type { ImageUploadProps } from "../../utils/interface";
 import { IconImageDefault } from "../icons";
 import { useRef, useState } from "react";
 import { LoadingSpinner } from "../loading";
+import {
+  handleImageDeleteAsync,
+  handleImageUploadAsync,
+} from "../../api/handle/handleImages";
+import { currentUrl } from "../../api/axiosInstance";
 
 const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
   const [uploadProgress, setUploadProgress] = useState<number>(0);
@@ -31,7 +31,7 @@ const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
       try {
         if (res) {
           if (res.meta.requestStatus === "rejected") {
-            toast.error("connecting server error!");
+            toast.error("Connect server error!");
           }
           if (res.meta.requestStatus === "fulfilled") {
             setImage({ id: "", imageUrl: "" });
@@ -127,7 +127,7 @@ const ImageUpload = ({ image, setImage }: ImageUploadProps) => {
 
         if (res) {
           if (res.meta.requestStatus === "rejected") {
-            toast.error("connecting server error!");
+            toast.error("Connect server error!");
             setImage({ id: "", imageUrl: "" });
           }
           if (res.meta.requestStatus === "fulfilled") {

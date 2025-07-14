@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { currentUrl } from "../../stores/api/axiosInstance";
 import type { CategoryDetailProps } from "../../utils/interface";
 import { useAppDispatch } from "../../hooks/hook";
-import { handleUserGetFromIdAsync } from "../../stores/handles";
 import { toast } from "react-toastify";
 import type { UserRes } from "../../utils/requestUtils";
 import type { ResponseResult } from "../../utils/responseUtils";
@@ -11,6 +9,8 @@ import { LabelStatus } from "../../components/label";
 import SpanTitle from "../../components/span/SpanTitle";
 import { LoadingSpinner } from "../../components/loading";
 import { formatDate } from "../../utils/handlerUtils";
+import { currentUrl } from "../../api/axiosInstance";
+import { handleUserGetFromIdAsync } from "../../api/handle/handleUsers";
 
 const CategoryDetail = ({ item }: CategoryDetailProps) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const CategoryDetail = ({ item }: CategoryDetailProps) => {
 
       if (res) {
         if (res.meta.requestStatus === "rejected") {
-          toast.error("Connecting server error!");
+          toast.error("Connect server error!");
           setLoading(false);
         }
         if (res.meta.requestStatus === "fulfilled") {
