@@ -5,6 +5,7 @@ const DashboardButton = ({
   isLoading,
   children,
   buttonColor,
+  disabled,
   ...props
 }: ButtonProps) => {
   const child = isLoading ? (
@@ -33,9 +34,9 @@ const DashboardButton = ({
   return (
     <button
       {...props}
-      disabled={isLoading}
+      disabled={disabled || isLoading}
       className={`w-full items-center justify-center mx-auto rounded-lg text-sm py-3 font-semibold px-6  ${
-        isLoading ? "bg-gray-300 cursor-not-allowed" : color
+        isLoading || disabled ? "bg-gray-300 cursor-not-allowed" : color
       }`}
     >
       {child}

@@ -52,6 +52,15 @@ export const adminSideBarMenuPath = {
   Profile: "profile",
 } as const;
 
+export const clientSiderBarMenuPath = {
+  Home: "",
+  Category: "danh-muc",
+  Product: "san-pham",
+  Blog: "blog",
+  About: "about",
+  Contact: "lien-he",
+} as const;
+
 export const RetCodeEnum = {
   Ok: 0,
   ApiError: 1,
@@ -74,7 +83,35 @@ export const UserStatus = {
   TemporarilyDeleted: 1,
 } as const;
 
+export const UserBannedEnum = {
+  No: 0,
+  Banned: 1,
+} as const;
+
 export const StatusEnum = {
   Active: 0,
   InActive: 1,
+} as const;
+
+export const GenderEnum = {
+  Male: 1,
+  Female: 2,
+  Other: 3,
+};
+
+export const RoleUserEnum = {
+  User: 1,
+  Staff: 2,
+} as const;
+
+export const RoleAdminEnum = {
+  Staff: 3,
+  Moderator: 4,
+  Admin: 5,
+  SuperAdmin: 6,
+} as const;
+
+export const ActivateEnum = {
+  IsActivated: 1,
+  InActivated: 0,
 } as const;

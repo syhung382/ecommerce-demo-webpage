@@ -19,7 +19,10 @@ const schema = yup.object({
     .string()
     .required("Vui lòng nhập tên đăng nhập!")
     .min(3, "Tên đăng nhập phải ít nhất 3 ký tự!")
-    .matches(/^[a-zA-Z0-9]+$/, "Tên đăng nhập chỉ chứa chữ và số"),
+    .matches(
+      /^[a-zA-Z0-9_]+$/,
+      "Tên đăng nhập không chứa khoảng trắng hoặc ký tự đặc biệt!"
+    ),
   password: yup
     .string()
     .required("Vui lòng nhập mật khẩu!")

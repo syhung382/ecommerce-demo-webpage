@@ -53,6 +53,7 @@ export type ButtonProps = {
   children: React.ReactNode;
   isLoading?: boolean;
   buttonColor?: "primary" | "secondary" | "primaryOutline";
+  disabled?: boolean;
 } & React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
@@ -100,6 +101,7 @@ export interface ImageItemProps {
 }
 export interface ImageSelectProps extends OnClickProps {
   image?: string;
+  disabled?: boolean;
 }
 export interface ItemSelectedProps {
   id: string;
@@ -262,4 +264,27 @@ export interface TableItemProps {
 export interface TinyEditorProps {
   value: string;
   onChange: (value: string) => void;
+}
+
+//customer
+export interface CustomerTableProps {
+  navigate: NavigateFunction;
+}
+export interface CustomerFormProps {
+  id?: number;
+  handleSuccess: () => void;
+}
+export interface UserTableProps {
+  navigate: NavigateFunction;
+}
+export interface UserFormProps {
+  id?: number;
+  handleSuccess: () => void;
+}
+
+//menu
+export interface ClientMenuItemProps {
+  active?: boolean;
+  url: string;
+  title: string;
 }

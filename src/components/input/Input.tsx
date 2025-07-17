@@ -6,6 +6,7 @@ const Input = ({
   children,
   control,
   className,
+  disabled,
   ...rest
 }: InputProps) => {
   const { field } = useController({
@@ -14,9 +15,14 @@ const Input = ({
     defaultValue: "",
   });
   return (
-    <div className="w-full relative border border-gray-400 hover:border-blue-300 rounded-lg ">
+    <div
+      className={`w-full relative border border-gray-400 h rounded-lg ${
+        disabled ? "bg-gray-200 dark:bg-gray-600" : "over:border-blue-300"
+      }`}
+    >
       <input
-        className={`${
+        disabled={disabled}
+        className={`${disabled && "cursor-not-allowed"} ${
           className
             ? className
             : "px-3 py-3 outline-none w-full placeholder:text-gray-500 focus:rounded-lg focus:border focus:border-blue-500 dark:text-gray-300"

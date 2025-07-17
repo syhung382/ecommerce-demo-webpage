@@ -6,6 +6,11 @@ export interface ResponseResult<T> {
   data: T;
 }
 
+export interface DeletedNumberRes {
+  deletedIds?: number[];
+  notFoundIds?: number[];
+}
+
 export interface Pagin {
   totalRows: number;
   limitPage: number;
@@ -107,4 +112,24 @@ export interface ProductImage extends deleteFlagUtils, authorUtils {
   id: string;
   imageId: string;
   imageUrl: string;
+}
+
+//user
+export interface User extends deleteFlagUtils, authorUtils, statusUtils {
+  id: number;
+  email: string;
+  fullName?: string;
+  userName: string;
+  password: string;
+  avatar?: string;
+  isActived: number;
+  isBanned: number;
+  gender: number;
+  role: number;
+  roleAdmin?: number;
+  inviteUserId?: number;
+  inviteUserCount?: number;
+  codeInvite?: string;
+  isFirstLogin: number;
+  lastLoginDate?: string;
 }

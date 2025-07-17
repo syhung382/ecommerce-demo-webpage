@@ -1,11 +1,12 @@
-const moon = () => {
+import type { svgProp } from "../../utils/interface";
+
+const moon = ({ ...rest }: svgProp) => {
   return (
     <svg
       className="fill-current"
-      width="20"
-      height="20"
       viewBox="0 0 20 20"
       fill="none"
+      {...rest}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

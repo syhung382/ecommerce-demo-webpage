@@ -2,14 +2,18 @@ import { currentUrlImage } from "../../api/axiosInstance";
 import type { ImageSelectProps } from "../../utils/interface";
 import { IconImageDefault } from "../icons";
 
-const ImageSelect = ({ image, onClick }: ImageSelectProps) => {
+const ImageSelect = ({ image, onClick, disabled }: ImageSelectProps) => {
   if (image) {
     const splitUrl = image.split("/");
     const imageName = splitUrl[splitUrl.length - 1];
     return (
       <div
-        className="w-full py-2 border border-gray-300 rounded-md flex px-3 gap-x-3 items-center text-gray-600 dark:text-gray-500 cursor-pointer hover:border-red-400 dark:hover:border-red-300 hover:text-red-400 dark:hover:text-red-300"
-        onClick={onClick}
+        className={`w-full py-2 border border-gray-300 rounded-md flex px-3 gap-x-3 items-center text-gray-600 dark:text-gray-500 ${
+          disabled
+            ? "cursor-not-allowed"
+            : "cursor-pointer hover:border-red-400 dark:hover:border-red-300 hover:text-red-400 dark:hover:text-red-300"
+        }`}
+        onClick={disabled ? () => {} : onClick}
       >
         <img
           src={`${currentUrlImage}${image}`}
@@ -30,8 +34,12 @@ const ImageSelect = ({ image, onClick }: ImageSelectProps) => {
   } else {
     return (
       <div
-        className="w-full py-2 border border-gray-300 rounded-md flex px-3 gap-x-3 items-center text-gray-600 dark:text-gray-500 cursor-pointer hover:border-blue-400 dark:hover:border-blue-300 hover:text-blue-400 dark:hover:text-blue-300"
-        onClick={onClick}
+        className={`w-full py-2 border border-gray-300 rounded-md flex px-3 gap-x-3 items-center text-gray-600 dark:text-gray-500 ${
+          disabled
+            ? "cursor-not-allowed"
+            : "cursor-pointer hover:border-blue-400 dark:hover:border-blue-300 hover:text-blue-400 dark:hover:text-blue-300"
+        }`}
+        onClick={disabled ? () => {} : onClick}
       >
         <IconImageDefault height={24}></IconImageDefault>
         <span className="flex-1 flex text-sm font-semibold gap-x-1">

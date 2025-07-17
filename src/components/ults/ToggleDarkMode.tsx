@@ -12,7 +12,13 @@ const ToggleDarkMode = () => {
     <>
       <ButtonIcon
         onClick={() => dispatch(toggleDarkMode(!darkMode))}
-        icon={!darkMode ? <IconSun></IconSun> : <IconMoon></IconMoon>}
+        icon={
+          !darkMode ? (
+            <IconSun width={16} height={16}></IconSun>
+          ) : (
+            <IconMoon width={16} height={16}></IconMoon>
+          )
+        }
       ></ButtonIcon>
     </>
   );

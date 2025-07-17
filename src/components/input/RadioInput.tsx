@@ -6,14 +6,14 @@ const RadioInput = ({
   value,
   status,
   onChange,
-}: RadioInputProps<0 | 1>) => {
+}: RadioInputProps<number>) => {
   const id = `${name}-${value}`;
   return (
     <label htmlFor={id} className="flex flex-row gap-x-2 items-center">
       <input
         id={id}
         type="radio"
-        name="status"
+        name={name}
         value={value}
         checked={status === value}
         onChange={() => onChange(value)}

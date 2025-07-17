@@ -2,7 +2,7 @@ import { ButtonSearch, ButtonSort } from "../../components/buttons";
 import { LabelStatus } from "../../components/label";
 import { ActionDelete, ActionEdit, ActionView } from "../../components/action";
 import { Limit, Paging } from "../../paging";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type {
   Pagin,
   ProductRes,
@@ -25,6 +25,8 @@ import {
 import { adminSideBarMenuPath, StatusEnum } from "../../utils/constants";
 import { currentUrlImage } from "../../api/axiosInstance";
 import { ConfirmDialog } from "../../components/modals";
+import { LoadingSpinner } from "../../components/loading";
+import { debounce } from "lodash";
 
 const ProductTable = ({ navigate }: ProductTableProps) => {
   //loading
@@ -34,6 +36,7 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
 
   //conditions
   const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [isInputTitle, setIsInputTitle] = useState<boolean>(false);
   const [sortType, setSortType] = useState<"Off" | "ASC" | "DESC">("Off");
   const [sortField, setSortField] = useState<
     "" | "title" | "price" | "createdAt" | "status"
@@ -42,7 +45,7 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
   //data
   const [listData, setListData] = useState<ProductRes[]>([]);
   const [paging, setPaging] = useState<Pagin | null>(null);
-  const [deleteIds, setDeleteIds] = useState<string[]>("");
+  const [deleteIds, setDeleteIds] = useState<string[]>([]);
 
   //filter
   const [headerParams, setHeaderParams] = useState<
@@ -60,8 +63,10 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
       typeSort: "",
     },
   });
+  const [inputTitleValue, setInputTitleValue] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChangeSort = ({
     value,
@@ -125,6 +130,14 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
         isDesc: sortType === "DESC",
       },
     }));
+  };
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTitleValue(e.target.value);
+  };
+
+  const handleToggleSearch = () => {
+    setIsInputTitle((prev) => !prev);
   };
 
   const handleToggleDelete = (id: string | null) => {
@@ -199,6 +212,34 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
     }
   };
 
+  //useEffect
+  useEffect(() => {
+    function changeValueSearch() {
+      setHeaderParams((prev) => {
+        const newBody = { ...prev.body, title: inputTitleValue };
+        if (JSON.stringify(prev.body) === JSON.stringify(newBody)) return prev;
+
+        return {
+          ...prev,
+          page: 1,
+          body: newBody,
+        };
+      });
+    }
+
+    const debounced = debounce(changeValueSearch, 500);
+    debounced();
+    return () => {
+      debounced.cancel();
+    };
+  }, [inputTitleValue]);
+
+  useEffect(() => {
+    if (isInputTitle && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isInputTitle]);
+
   useEffect(() => {
     fetchData();
   }, [headerParams]);
@@ -216,22 +257,19 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
             <th className="px-4 py-2 w-[7%] text-center">Ảnh</th>
             <th className="px-4 py-2 border-x border-gray-300 dark:border-gray-600 w-[18%]">
               <div className="w-full flex flex-row items-center gap-x-1">
-                <ButtonSearch
-                  // onClick={handleToggleSearch}
-                  isOpen={false}
-                />
-                {/* {isInputSearch ? (
-                      <input
-                        ref={inputRef}
-                        className=" w-full text-sm px-1 py-[1px] border border-gray-300 rounded"
-                        type="text"
-                        placeholder="search.."
-                        onChange={handleChangeInput}
-                        value={inputSearchValue}
-                      />
-                    ) : ( */}
-                <span className="w-full">Tên</span>
-                {/* )} */}
+                <ButtonSearch onClick={handleToggleSearch} isOpen={false} />
+                {isInputTitle ? (
+                  <input
+                    ref={inputRef}
+                    className=" w-full text-sm px-1 py-[1px] border border-gray-300 rounded"
+                    type="text"
+                    placeholder="search.."
+                    onChange={handleChangeInput}
+                    value={inputTitleValue}
+                  />
+                ) : (
+                  <span className="w-full">Tên</span>
+                )}
                 <ButtonSort
                   value={sortField === "title" ? sortType : "Off"}
                   onClick={() => handleChangeSort({ value: "title" })}
@@ -266,7 +304,8 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {listData &&
+          {!loadingContent &&
+            listData &&
             listData.map((item, index) => (
               <TableItem
                 index={paging && index + 1 + paging?.startIndex}
@@ -278,6 +317,7 @@ const ProductTable = ({ navigate }: ProductTableProps) => {
             ))}
         </tbody>
       </table>
+      {loadingContent && <LoadingSpinner size={30} borderSize={10} />}
       <Paging page={1} totalPage={1} handleChangePage={() => {}}>
         <Limit limit={10} handleSelectLimit={() => {}}></Limit>
       </Paging>
