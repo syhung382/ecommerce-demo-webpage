@@ -77,3 +77,6 @@ export { default as IconRequired } from "./required";
 export { default as IconBack } from "./arrow-uturn-left";
 export { default as IconRight } from "./right";
 export { default as IconUpload } from "./upload";
+export { default as IconUpwork } from "./upwork";
+export { default as IconFacebook } from "./facebook";
+export { default as IconTelegram } from "./telegram";

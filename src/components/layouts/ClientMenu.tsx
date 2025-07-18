@@ -13,7 +13,7 @@ const ClientMenu = () => {
   };
 
   return (
-    <div className="px-4 lg:px-40 gap-x-5 items-center h-8 hidden lg:flex">
+    <div className="px-4 lg:px-40 xl:px-60 gap-x-5 items-center h-8 hidden lg:flex">
       <div className="h-full flex items-center">
         <img src="/images/logo/logo.svg" alt="" className="h-full" />
       </div>
@@ -50,12 +50,12 @@ const ClientMenu = () => {
             active={isActive(clientSiderBarMenuPath.Contact)}
           />
         </div>
-        <div className="flex border border-gray-400 dark:border-gray-600">
+        <div className="flex border border-gray-200 dark:border-gray-600">
           <input
             type="text"
             className="border-none outline-none px-2 py-1 text-sm font-semibold"
           />
-          <div className="flex items-center justify-center px-2 cursor-pointer bg-pink-600 dark:bg-pink-600/60">
+          <div className="flex items-center justify-center px-2 cursor-pointer bg-pink-600">
             <IconSearch className="text-white dark:text-gray-200" width={16} />
           </div>
         </div>
