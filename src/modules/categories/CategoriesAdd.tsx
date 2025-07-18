@@ -38,7 +38,7 @@ const CategoriesAdd = () => {
   const [itemDropdown, setItemDropdown] = useState<Category | null>(null);
   const [isSelectImage, setIsSelectImage] = useState<boolean>(false);
   const [imageSelected, setImageSelected] = useState<string>();
-  const [status, setStatus] = useState<0 | 1>(0);
+  const [status, setStatus] = useState<number>(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const imageSelectRef = useRef<any>(null);
 

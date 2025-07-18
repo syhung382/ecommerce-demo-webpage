@@ -6,7 +6,7 @@ const getToken = () => localStorage.getItem(localStorageName.USERTOKEN);
 // const proUrl = "https://ecommerce-dev.somee.com";
 //"https://localhost:44371"
 //https://iamkazu.bsite.net
-export const currentUrl = "https://localhost:44371";
+export const currentUrl = "https://iamkazu.bsite.net";
 export const currentUrlImage = currentUrl + "/api/Global/view-image?imageUrl=";
 export const currentUrlApi = currentUrl + "/api";
 

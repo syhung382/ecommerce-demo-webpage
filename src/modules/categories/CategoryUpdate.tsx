@@ -34,7 +34,7 @@ const CategoryUpdate = () => {
 
   const [isSelectImage, setIsSelectImage] = useState<boolean>(false);
   const [imageSelected, setImageSelected] = useState<string>();
-  const [status, setStatus] = useState<0 | 1>(0);
+  const [status, setStatus] = useState<number>(0);
   const [currentCategory, setCurrentCategory] = useState<Category | null>();
 
   const [params] = useSearchParams();

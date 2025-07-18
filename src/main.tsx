@@ -7,10 +7,10 @@ import { ToastContainer } from "react-toastify";
 import store from "./stores/configureStore.ts";
 
 createRoot(document.getElementById("root")!).render(
-  <>
+  <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
     <ToastContainer></ToastContainer>
-  </>
+  </StrictMode>
 );

@@ -91,7 +91,7 @@ const ProductForm = ({ id, handleSuccess }: ProductProps) => {
 
   //form type
   const [formType, setFormType] = useState<"add" | "update">("add");
-  const [status, setStatus] = useState<0 | 1>(0);
+  const [status, setStatus] = useState<number>(0);
 
   //form value
   const [imageSelected, setImageSelected] = useState<string>();
