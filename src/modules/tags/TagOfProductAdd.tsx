@@ -16,7 +16,7 @@ import { handleTagOfProductAddNewAsync } from "../../api/handle/handleTags";
 
 const TagOfProductAdd = ({ onClick }: OnClickProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [status, setStatus] = useState<0 | 1>(0);
+  const [status, setStatus] = useState<number>(0);
   const [errorTitle, setErrorTitle] = useState<string>("");
 
   const { control, handleSubmit } = useForm<TagOfProductReq>({

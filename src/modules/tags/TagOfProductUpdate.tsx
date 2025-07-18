@@ -24,7 +24,7 @@ import {
 const TagOfProductUpdate = ({ id, onClick }: TagOfProductUpdateProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
-  const [status, setStatus] = useState<0 | 1>(0);
+  const [status, setStatus] = useState<number>(0);
   const [errorTitle, setErrorTitle] = useState<string>("");
   const [data, setData] = useState<TagOfProduct>();
 
