@@ -38,7 +38,7 @@ const ProductFeature = () => {
           {Array.from({ length: totalSlides }).map((_, index) => (
             <div
               key={index}
-              className="w-full flex-shrink-0 px-10 lg:px-40 xl:px-60"
+              className="w-full flex-shrink-0 px-10 lg:px-30 xl:px-60"
             >
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {products

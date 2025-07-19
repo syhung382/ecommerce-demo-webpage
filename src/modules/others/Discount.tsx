@@ -1,6 +1,6 @@
 const Discount = () => {
   return (
-    <div className="mt-20 w-full max-w-[99vw] grid grid-cols-2 gap-4 px-10 lg:px-40 xl:px-60">
+    <div className="mt-20 w-full max-w-[99vw] grid grid-cols-1 lg:grid-cols-2 gap-4 px-10 lg:px-30 xl:px-60">
       <div className="p-7 bg-pink-100 relative h-[270px]">
         <h3 className=" text-2xl font-bold text-blue-900 cursor-pointer">
           Giảm giá 23% tất cả sản phẩm

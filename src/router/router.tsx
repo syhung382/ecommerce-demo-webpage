@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
-import { adminSideBarMenuPath } from "../utils/constants";
+import {
+  adminSideBarMenuPath,
+  clientSiderBarMenuPath,
+} from "../utils/constants";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -52,8 +55,8 @@ export function setupRounter() {
       errorElement: <PageNotFound />,
       children: [
         { index: true, element: <HomePage /> },
-        { path: "sign-in", element: <LoginPage /> },
-        { path: "sign-up", element: <RegisterPage /> },
+        { path: clientSiderBarMenuPath.Login, element: <LoginPage /> },
+        { path: clientSiderBarMenuPath.Register, element: <RegisterPage /> },
         { path: "*", element: <PageNotFound /> },
       ],
     },

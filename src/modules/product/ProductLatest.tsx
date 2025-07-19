@@ -32,7 +32,7 @@ const ProductLatest = () => {
         {categories.map((item) => (
           <span
             key={item.id}
-            className={`text-lg font-semibold cursor-pointer ${
+            className={`text-sm lg:text-lg font-semibold cursor-pointer ${
               categorySelected === item.id
                 ? " underline decoration-1 text-pink-600 decoration-pink-600 underline-offset-4"
                 : "text-gray-500 hover:text-pink-500"
@@ -43,7 +43,7 @@ const ProductLatest = () => {
           </span>
         ))}
       </div>
-      <div className="w-full mt-10 px-10 lg:px-40 xl:px-60">
+      <div className="w-full mt-10 px-10 lg:px-30 xl:px-60">
         <ProductLatestItem />
       </div>
     </div>

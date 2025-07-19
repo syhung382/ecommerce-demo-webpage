@@ -30,7 +30,7 @@ export { default as IconCloseLine } from "./close-line.svg?react";
 export { default as IconPaperPlane } from "./paper-plane.svg?react";
 export { default as IconLock } from "./lock.svg?react";
 export { default as IconEnvelope } from "./envelope.svg?react";
-export { default as IconUser } from "./user-line.svg?react";
+export { default as IconUser } from "./user";
 export { default as IconCalender } from "./calender-line.svg?react";
 export { default as IconTime } from "./time.svg?react";
 export { default as IconCopy } from "./copy.svg?react";

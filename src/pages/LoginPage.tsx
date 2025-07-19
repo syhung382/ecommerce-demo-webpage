@@ -50,7 +50,6 @@ const LoginPage = () => {
 
     try {
       await dispatch(handleLoginAsync(value)).unwrap();
-      navigate("admin/dashboard");
     } catch (error) {
       console.error("❌ Login thất bại:", error);
     }
@@ -69,7 +68,7 @@ const LoginPage = () => {
   }, [user, navigate]);
 
   return (
-    <div className="mt-10 max-w-[500px] w-full mx-auto border border-gray-200 rounded-xl p-5 items-center justify-center flex-col flex">
+    <div className="mt-10 max-w-[500px] w-full mx-auto border border-gray-200 bg-white dark:bg-gray-800 rounded-xl p-5 items-center justify-center flex-col flex">
       <h1 className="font-bold text-2xl">Đăng nhập</h1>
       <span className="text-gray-500 text-sm">
         Vui lòng đăng nhập để sử dụng

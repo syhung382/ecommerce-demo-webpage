@@ -59,6 +59,10 @@ export const clientSiderBarMenuPath = {
   Blog: "blog",
   About: "about",
   Contact: "lien-he",
+  Login: "dang-nhap",
+  Register: "dang-ky",
+  Order: "gio-hang",
+  Checkout: "thanh-toan",
 } as const;
 
 export const RetCodeEnum = {

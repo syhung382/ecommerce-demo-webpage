@@ -14,9 +14,9 @@ const ToggleDarkMode = () => {
         onClick={() => dispatch(toggleDarkMode(!darkMode))}
         icon={
           !darkMode ? (
-            <IconSun width={16} height={16}></IconSun>
+            <IconSun width={20} height={20}></IconSun>
           ) : (
-            <IconMoon width={16} height={16}></IconMoon>
+            <IconMoon width={20} height={20}></IconMoon>
           )
         }
       ></ButtonIcon>

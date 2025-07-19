@@ -283,7 +283,7 @@ export interface UserFormProps {
 }
 
 //menu
-export interface ClientMenuItemProps {
+export interface ClientMenuItemProps extends OnClickProps {
   active?: boolean;
   url: string;
   title: string;

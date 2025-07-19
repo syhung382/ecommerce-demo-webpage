@@ -1,8 +1,8 @@
 const Fotter = () => {
   return (
     <div className="w-[100vw] bg-blue-100/50 dark:bg-blue-900/20 mt-10">
-      <div className="py-10 lg:py-20 px-10 lg:px-40 xl:px-60 grid grid-cols-1 md:grid-cols-5 gap-6">
-        <div className="lg:col-span-2">
+      <div className="py-10 lg:py-20 px-10 lg:px-30 xl:px-60 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="col-span-2 md:col-span-3 lg:col-span-2">
           <h3 className="text-lg font-bold mb-2">Về chúng tôi</h3>
           <div className="flex dark:border-gray-600 my-4">
             <input

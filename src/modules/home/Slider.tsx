@@ -27,12 +27,12 @@ const Slider = () => {
       >
         {slides.map((slide, idx) => (
           //item
-          <div key={idx} className="min-w-full grid px-10 lg:px-40 xl:px-60">
-            <div className="max-w-[550px] flex flex-col align-center">
+          <div key={idx} className=" min-w-full  grid">
+            <div className="w-full max-w-[80%] mx-auto flex flex-col align-center">
               <span className="text-sm font-semibold text-pink-600">
                 {slide.subtitle}
               </span>
-              <h2 className="text-2xl font-bold my-2 text-blue-900">
+              <h2 className="text-xl lg:text-3xl font-bold my-2 text-blue-900">
                 {slide.title}
               </h2>
               <p className="text-gray-600 dark:text-gray-600 text-sm mb-4">
@@ -41,7 +41,7 @@ const Slider = () => {
               <div>
                 <button
                   type="button"
-                  className="px-4 py-2 bg-pink-600  text-white font-semibold rounded hover:bg-pink-700 transition cursor-pointer"
+                  className="px-4 py-2 bg-pink-600 text-sm lg:text-base text-white font-semibold rounded hover:bg-pink-700 transition cursor-pointer"
                 >
                   Mua ngay
                 </button>
@@ -53,16 +53,16 @@ const Slider = () => {
 
       {/* Arrows */}
       <button
-        className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white shadow cursor-pointer"
+        className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white shadow cursor-pointer"
         onClick={goToPrevSlide}
       >
-        <IconChevronLeft width={20} />
+        <IconChevronLeft className="w-3 md:w-5" />
       </button>
       <button
-        className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white shadow cursor-pointer"
+        className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white shadow cursor-pointer"
         onClick={goToNextSlide}
       >
-        <IconChevronRight width={20} />
+        <IconChevronRight className="w-3 md:w-5" />
       </button>
 
       {/* Indicators */}
