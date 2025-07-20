@@ -41,6 +41,9 @@ const StorePage = () => {
 
   useEffect(() => {}, [filterPriceMax, filterPriceMin]);
 
+  useEffect(() => {
+    document.title = "Cửa hàng";
+  }, []);
   return (
     <>
       <MapComponent title="Cửa hàng" mapItem={mapList} />

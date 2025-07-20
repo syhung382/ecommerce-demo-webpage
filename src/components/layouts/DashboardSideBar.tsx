@@ -11,7 +11,10 @@ import {
   IconUser,
 } from "../icons";
 import DashBoardSideItem from "../ults/DashBoardSideItem";
-import { adminSideBarMenuPath } from "../../utils/constants";
+import {
+  adminSideBarMenuPath,
+  clientSiderBarMenuPath,
+} from "../../utils/constants";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hook";
 import { userLogout } from "../../stores/slice/userSlice";
@@ -71,7 +74,7 @@ const DashboardSideBar = () => {
 
   const handleLogout = () => {
     dispath(userLogout());
-    navigate("/sign-in");
+    navigate(`/${clientSiderBarMenuPath.Login}`);
   };
 
   const isActiveGroup = (paths: string[]): boolean => {
