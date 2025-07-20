@@ -44,13 +44,13 @@ git clone https://github.com/iftykhar/E-commerce-Hekto.git
 cd ecommerce-demo-webpage
 ```
 
-### **3️⃣ Install Dependencies**
+### **2️⃣ Install Dependencies**
 
 ```sh
  npm install  # or yarn install
 ```
 
-### **4️⃣ Run the Development Server**
+### **3️⃣ Run the Development Server**
 
 ```sh
  npm run dev  # or yarn dev
