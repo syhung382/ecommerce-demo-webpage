@@ -3,7 +3,7 @@ const Fotter = () => {
     <div className="w-[100vw] bg-blue-100/50 dark:bg-blue-900/20 mt-10">
       <div className="py-10 lg:py-20 px-10 lg:px-30 xl:px-60 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         <div className="col-span-2 md:col-span-3 lg:col-span-2">
-          <h3 className="text-lg font-bold mb-2">Về chúng tôi</h3>
+          <h3 className="text-lg font-bold mb-2 text-blue-950">Về chúng tôi</h3>
           <div className="flex dark:border-gray-600 my-4">
             <input
               type="email"
@@ -20,7 +20,7 @@ const Fotter = () => {
           </p>
         </div>
         <div>
-          <h3 className="text-lg font-bold mb-2">Hỗ trợ</h3>
+          <h3 className="text-lg font-bold mb-2 text-blue-950">Hỗ trợ</h3>
           <ul className="space-y-2 text-gray-600 dark:text-gray-300">
             <li>Hướng dẫn</li>
             <li>Chính sách</li>
@@ -28,7 +28,7 @@ const Fotter = () => {
           </ul>
         </div>
         <div>
-          <h3 className="text-lg font-bold mb-2">Tài khoản</h3>
+          <h3 className="text-lg font-bold mb-2 text-blue-950">Tài khoản</h3>
           <ul className="space-y-2 text-gray-600 dark:text-gray-300">
             <li>Đăng nhập</li>
             <li>Đăng ký</li>
@@ -36,7 +36,7 @@ const Fotter = () => {
           </ul>
         </div>
         <div>
-          <h3 className="text-lg font-bold mb-2">Kết nối</h3>
+          <h3 className="text-lg font-bold mb-2 text-blue-950">Kết nối</h3>
           <ul className="space-y-2 text-gray-600 dark:text-gray-300">
             <li>Facebook</li>
             <li>Zalo</li>

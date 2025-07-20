@@ -55,7 +55,7 @@ export const adminSideBarMenuPath = {
 export const clientSiderBarMenuPath = {
   Home: "",
   Category: "danh-muc",
-  Product: "san-pham",
+  Product: "cua-hang",
   Blog: "blog",
   About: "about",
   Contact: "lien-he",

@@ -367,7 +367,7 @@ const ProductForm = ({ id, handleSuccess }: ProductProps) => {
               name="price"
               placeholder="0"
               value={inputPrice}
-              maxLength={19}
+              maxLength={14}
               onChange={handleInputPriceChange}
             />
             {errors.price && (
@@ -385,7 +385,9 @@ const ProductForm = ({ id, handleSuccess }: ProductProps) => {
               name="priceSale"
               placeholder="0"
               type="text"
+              inputMode="numeric"
               value={inputPriceSale}
+              maxLength={14}
               onChange={handleInputPriceSaleChange}
             />
           </Field>

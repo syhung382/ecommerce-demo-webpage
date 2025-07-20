@@ -32,7 +32,7 @@ const Slider = () => {
               <span className="text-sm font-semibold text-pink-600">
                 {slide.subtitle}
               </span>
-              <h2 className="text-xl lg:text-3xl font-bold my-2 text-blue-900">
+              <h2 className="text-xl lg:text-3xl font-bold my-2 text-blue-950">
                 {slide.title}
               </h2>
               <p className="text-gray-600 dark:text-gray-600 text-sm mb-4">

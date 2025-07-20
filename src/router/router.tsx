@@ -4,6 +4,7 @@ import {
   adminSideBarMenuPath,
   clientSiderBarMenuPath,
 } from "../utils/constants";
+import StorePage from "../pages/StorePage";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -57,6 +58,7 @@ export function setupRounter() {
         { index: true, element: <HomePage /> },
         { path: clientSiderBarMenuPath.Login, element: <LoginPage /> },
         { path: clientSiderBarMenuPath.Register, element: <RegisterPage /> },
+        { path: clientSiderBarMenuPath.Product, element: <StorePage /> },
         { path: "*", element: <PageNotFound /> },
       ],
     },

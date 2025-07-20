@@ -288,3 +288,36 @@ export interface ClientMenuItemProps extends OnClickProps {
   url: string;
   title: string;
 }
+
+//other
+export interface MapItemProps {
+  title: string;
+  url: string;
+}
+export interface MapComponentProps {
+  title: string;
+  mapItem?: MapItemProps[];
+}
+export interface SortProductProps {
+  type: SortProductItemProps;
+  handleSelectSort: (value: SortProductItemProps) => void;
+}
+export interface SortProductItemProps {
+  title: string;
+  type: string;
+}
+export interface FilterProductItemValue {
+  id: string;
+  title: string;
+}
+export interface FilterProductItemProps extends OnClickProps {
+  title: string;
+  isActive?: boolean;
+}
+export interface FilterProductPriceProps {
+  onChangePrice?: (min: number, max: number) => void;
+}
+export interface SortComponentProps {
+  typeList: "grid" | "list";
+  onChangeTypeList: () => void;
+}

@@ -1,3 +1,5 @@
+import ButtonClient from "../../components/buttons/ButtonClient";
+
 const ProductItem = () => {
   return (
     <div className="group transition hover:bg-blue-500 dark:hover:bg-blue-900 dark:border dark:border-gray-700 dark:rounded-md ">
@@ -11,18 +13,13 @@ const ProductItem = () => {
         </button>
       </div>
       <div className="text-center w-full mt-2 p-4">
-        <h3 className="text-lg font-bold dark:text-blue-700 group-hover:dark:text-pink-700 text-pink-600 cursor-pointer">
+        <h3 className="text-lg font-bold dark:text-blue-700 tẻ group-hover:dark:text-pink-700 text-pink-600 cursor-pointer">
           Sản phẩm 1
         </h3>
-        <p className="text-gray-600 group-hover:text-gray-200 dark:text-gray-400 text-sm font-semibold">
+        <p className="text-blue-950 group-hover:text-gray-200 dark:text-gray-400 text-sm font-semibold">
           Giá: 100.000đ
         </p>
-        <button
-          type="button"
-          className="text-xs md:text-sm transition duration-300 mt-6 cursor-pointer px-4 py-2 rounded-md font-semibold text-white bg-blue-600 hover:bg-blue-700 border border-gray-500 group-hover:bg-pink-500 group-hover:hover:bg-pink-600 dark:text-gray-300 group-hover:dark:bg-pink-700 group-hover:dark:hover:bg-pink-800"
-        >
-          Thêm vào giỏ
-        </button>
+        <ButtonClient title="Thêm vào giỏ hàng" />
       </div>
     </div>
   );

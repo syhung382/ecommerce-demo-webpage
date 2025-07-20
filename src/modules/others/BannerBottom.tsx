@@ -4,7 +4,7 @@ const BannerBottom = () => {
       className="relative w-full h-[300px] bg-cover bg-center flex items-center justify-center text-center px-4 mt-10"
       style={{ backgroundImage: "url('/images/image-bottom.png')" }}
     >
-      <div className="p-6 rounded-md text-blue-900 max-w-[600px]">
+      <div className="p-6 rounded-md text-blue-950 max-w-[600px]">
         <h2 className="text-xl md:text-2xl font-semibold mb-4">
           Nhận thông tin cập nhật mới nhất bằng cách đăng ký Bản tin của chúng
           tôi

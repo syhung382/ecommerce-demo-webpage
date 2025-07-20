@@ -8,7 +8,7 @@ const ProductTrendingItem = () => {
         <h3 className="text-lg font-bold dark:text-pink-700 group-hover:dark:text-blue-700 text-pink-600 group-hover:text-blue-600 cursor-pointer">
           Sản phẩm 1
         </h3>
-        <p className="text-gray-600 group-hover:text-gray-200 dark:text-gray-400 text-sm font-semibold">
+        <p className="text-gray-600 text-blue-950 group-hover:text-gray-200 dark:text-gray-400 text-sm font-semibold">
           100.000đ
         </p>
       </div>

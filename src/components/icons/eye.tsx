@@ -1,15 +1,14 @@
-import type { OnClickProps } from "../../utils/interface";
+import type { svgProp } from "../../utils/interface";
 
-const eye = ({ onClick }: OnClickProps) => {
+const eye = ({ ...props }: svgProp) => {
   return (
     <svg
-      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-6 cursor-pointer"
+      {...props}
     >
       <path
         strokeLinecap="round"
