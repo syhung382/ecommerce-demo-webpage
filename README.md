@@ -70,8 +70,9 @@ This project is licensed under the **MIT License**.
 ## 📬 Contact
 
 For any queries or collaboration opportunities, feel free to reach out:
-📧 Email: iamkazu382@gmail.com
-🔗 GitHub: https://github.com/syhung382
-🔗 Upwork: https://upwork.com/freelancers/~01698b265175ff407b
+
+- 📧 Email: iamkazu382@gmail.com
+- 🔗 GitHub: https://github.com/syhung382
+- 🔗 Upwork: [upwork](https://upwork.com/freelancers/~01698b265175ff407b)
 
 Made with ❤️ by [@syhung382](https://github.com/syhung382)
