@@ -32,7 +32,7 @@ const PageNotFound = () => {
 
   return (
     <div className="lg:min-h-[calc(100vh-3.5rem)] w-full flex flex-col items-center justify-center relative">
-      <MapComponent title="Cửa hàng" mapItem={mapList} />
+      <MapComponent title="Không tìm thấy trang" mapItem={mapList} />
       <IconNotFound className="max-w-[80%] lg:max-w-[60%]" />
 
       <div className="mt-[-40px] lg:mt-0 lg:absolute lg:bottom-10 items-center text-center flex flex-col mx-10">

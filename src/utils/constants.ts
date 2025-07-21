@@ -61,7 +61,7 @@ export const clientSiderBarMenuPath = {
   Contact: "lien-he",
   Login: "dang-nhap",
   Register: "dang-ky",
-  Order: "gio-hang",
+  Cart: "gio-hang",
   Checkout: "thanh-toan",
   ProductDetail: "san-pham",
 } as const;

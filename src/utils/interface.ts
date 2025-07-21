@@ -321,3 +321,8 @@ export interface SortComponentProps {
   typeList: "grid" | "list";
   onChangeTypeList: () => void;
 }
+
+//checkout
+export interface CheckoutContactProps {
+  onSubmit?: (value: boolean) => void;
+}

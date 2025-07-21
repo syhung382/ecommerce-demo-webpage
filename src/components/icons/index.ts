@@ -91,3 +91,4 @@ export { default as IconFacebookRound } from "./facebook-round.svg?react";
 export { default as IconTwitterRound } from "./twitter-round.svg?react";
 export { default as IconInstagramRound } from "./instagram.svg?react";
 export { default as IconNotFound } from "./not-found";
+export { default as IconCheck } from "./check";

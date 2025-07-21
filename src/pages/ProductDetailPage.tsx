@@ -36,7 +36,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <MapComponent title="Cửa hàng" mapItem={mapList} />
+      <MapComponent title="Sản phẩm" mapItem={mapList} />
 
       <div className="my-10 lg:my-20 px-6 md:px-10 lg:px-30 xl:px-60">
         <div className="w-full grid grid-cols-1 lg:grid-cols-6 gap-6">

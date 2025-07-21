@@ -4,13 +4,15 @@ import {
   adminSideBarMenuPath,
   clientSiderBarMenuPath,
 } from "../utils/constants";
-import StorePage from "../pages/StorePage";
-import ProductDetailPage from "../pages/ProductDetailPage";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
+const StorePage = lazy(() => import("../pages/StorePage"));
+const ProductDetailPage = lazy(() => import("../pages/ProductDetailPage"));
+const ShopingCart = lazy(() => import("../pages/ShopingCart"));
+const Checkout = lazy(() => import("../pages/Checkout"));
 const PageNotFound = lazy(() => import("../pages/PageNotFound"));
 
 const DashboardLayout = lazy(
@@ -64,6 +66,8 @@ export function setupRounter() {
           path: `${clientSiderBarMenuPath.ProductDetail}/:slug`,
           element: <ProductDetailPage />,
         },
+        { path: clientSiderBarMenuPath.Cart, element: <ShopingCart /> },
+        { path: clientSiderBarMenuPath.Checkout, element: <Checkout /> },
         { path: "*", element: <PageNotFound /> },
       ],
     },

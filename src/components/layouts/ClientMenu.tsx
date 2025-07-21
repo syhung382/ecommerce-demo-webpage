@@ -5,6 +5,7 @@ import ClientMenuItem from "../menu/ClientMenuItem";
 import { IconMenu, IconSearch } from "../icons";
 import { useEffect, useRef, useState } from "react";
 import MenuAccount from "../other/MenuAccount";
+import ButtonCart from "../ults/ButtonCart";
 
 const ClientMenu = () => {
   const [menuShow, setMenuShow] = useState(false);
@@ -102,6 +103,7 @@ const ClientMenu = () => {
             </div>
           </div>
           <div className="flex gap-x-2 items-center">
+            <ButtonCart />
             <ToggleDarkMode />
             <MenuAccount />{" "}
           </div>
@@ -111,6 +113,9 @@ const ClientMenu = () => {
         <div className="flex items-center px-10 gap-x-4 lg:hidden">
           <div className="h-full flex-1">
             <img src="/images/logo/logo.svg" alt="" className="h-full" />
+          </div>
+          <div>
+            <ButtonCart />
           </div>
           <div>
             <ToggleDarkMode />
