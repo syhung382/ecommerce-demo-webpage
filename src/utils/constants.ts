@@ -63,6 +63,7 @@ export const clientSiderBarMenuPath = {
   Register: "dang-ky",
   Order: "gio-hang",
   Checkout: "thanh-toan",
+  ProductDetail: "san-pham",
 } as const;
 
 export const RetCodeEnum = {

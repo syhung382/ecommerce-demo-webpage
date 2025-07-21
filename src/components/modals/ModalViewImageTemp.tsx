@@ -1,10 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import type { ModalViewImageProps } from "../../utils/interface";
-import { currentUrlImage } from "../../api/axiosInstance";
 import { IconChevronLeft, IconChevronRight, IconClose } from "../icons";
 
-const ModalViewImage = ({
+const ModalViewImageTemp = ({
   onClose,
   currentIndex,
   list,
@@ -41,7 +40,7 @@ const ModalViewImage = ({
               className="relative w-full max-w-[90vw] h-full max-h-[90vh] flex items-center justify-center"
             >
               <img
-                src={`${currentUrlImage}${list[currentIndex].imageUrl}`}
+                src={list[currentIndex].imageUrl}
                 alt="Preview"
                 className="max-w-full max-h-full rounded-lg object-contain"
               />
@@ -81,4 +80,4 @@ const ModalViewImage = ({
   );
 };
 
-export default ModalViewImage;
+export default ModalViewImageTemp;

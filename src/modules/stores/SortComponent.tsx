@@ -39,15 +39,15 @@ const SortComponent = ({ onChangeTypeList, typeList }: SortComponentProps) => {
         <div className="col-span-full lg:col-span-1"></div>
 
         {/* Các tuỳ chọn */}
-        <div className="col-span-5 flex items-center text-sm font-medium dark:text-gray-300">
+        <div className="col-span-5 lg:col-span-3 flex items-center text-sm font-medium dark:text-gray-300">
           Hiển thị:{" "}
           <LimitClient limit={limit} handleSelectLimit={handleSelectLimit} />
         </div>
-        <div className="col-span-7 flex items-center text-sm font-medium dark:text-gray-300">
+        <div className="col-span-7 lg:col-span-3 flex items-center text-sm font-medium dark:text-gray-300">
           Sắp xếp:{" "}
           <SortProduct type={sort} handleSelectSort={handleSelectSort} />
         </div>
-        <div className="col-span-full flex items-end text-sm font-medium dark:text-gray-300">
+        <div className="col-span-full lg:col-span-1 flex items-end text-sm font-medium dark:text-gray-300">
           <span>Kiểu:</span>
           <div
             className="ml-2 flex gap-x-2 cursor-pointer"

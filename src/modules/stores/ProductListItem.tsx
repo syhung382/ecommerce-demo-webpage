@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { IconEye, IconHeart, IconShopingCart } from "../../components/icons";
+import { clientSiderBarMenuPath } from "../../utils/constants";
 
 const ProductListItem = () => {
   return (
@@ -9,9 +11,12 @@ const ProductListItem = () => {
         className="w-full max-h-[200px] h-auto object-contain col-span-4 dark:bg-gray-700"
       />
       <div className="w-full col-span-8 flex flex-col justify-center gap-2">
-        <h3 className="font-bold text-blue-950 dark:text-blue-600 ">
+        <Link
+          to={`/${clientSiderBarMenuPath.ProductDetail}/san-pham-1`}
+          className="font-bold text-blue-950 dark:text-blue-600 "
+        >
           Sản phẩm
-        </h3>
+        </Link>
         <div className="w-full flex gap-x-2 items-center">
           <p className="text-blue-700  dark:text-blue-500 text-sm font-semibold">
             100.000đ

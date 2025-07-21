@@ -87,3 +87,6 @@ export { default as IconCheckboxBlueChecked } from "./checkbox-blue-checked";
 export { default as IconCheckboxPink } from "./checkbox-pink";
 export { default as IconCheckboxPinkChecked } from "./checkbox-pink-checked";
 export { default as IconHeart } from "./heart";
+export { default as IconFacebookRound } from "./facebook-round.svg?react";
+export { default as IconTwitterRound } from "./twitter-round.svg?react";
+export { default as IconInstagramRound } from "./instagram.svg?react";

@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { IconEye, IconHeart, IconShopingCart } from "../../components/icons";
+import { clientSiderBarMenuPath } from "../../utils/constants";
 
 const ProductGridItem = () => {
   return (
@@ -18,9 +20,12 @@ const ProductGridItem = () => {
         </div>
       </div>
       <div className="text-center w-full mt-2 p-4">
-        <h3 className="text-lg font-bold dark:text-blue-700 tẻ group-hover:dark:text-pink-700 text-pink-600 cursor-pointer">
+        <Link
+          to={`/${clientSiderBarMenuPath.ProductDetail}/san-pham-1`}
+          className="text-lg font-bold dark:text-blue-700 tẻ group-hover:dark:text-pink-700 text-pink-600 cursor-pointer"
+        >
           Sản phẩm 1
-        </h3>
+        </Link>
         <div className="flex justify-center items-center mt-2 gap-x-2">
           <p className="text-blue-900 group-hover:text-blue-950 dark:text-gray-400 text-sm font-semibold">
             100.000đ

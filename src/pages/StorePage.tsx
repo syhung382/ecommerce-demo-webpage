@@ -10,6 +10,7 @@ import ButtonClient from "../components/buttons/ButtonClient";
 import ProductGrid from "../modules/stores/ProductGrid";
 import ProductList from "../modules/stores/ProductList";
 import PagingClient from "../paging/PagingClient";
+import clsx from "clsx";
 
 const mapList: MapItemProps[] = [
   {
@@ -26,6 +27,7 @@ const StorePage = () => {
   const [filterPriceMin, setFilterPriceMin] = useState<number | null>(0);
   const [filterPriceMax, setFilterPriceMax] = useState<number | null>(0);
   const [typeList, setTypeList] = useState<"grid" | "list">("grid");
+  const [showAnimation, setShowAnimation] = useState(true);
 
   const handleOnChangePriceFilter = (
     min: number | null,
@@ -36,7 +38,11 @@ const StorePage = () => {
   };
 
   const handleChangeTypeList = () => {
-    setTypeList((prev) => (prev === "grid" ? "list" : "grid"));
+    setShowAnimation(false);
+    setTimeout(() => {
+      setTypeList((prev) => (prev === "grid" ? "list" : "grid"));
+      setShowAnimation(true);
+    }, 200);
   };
 
   useEffect(() => {}, [filterPriceMax, filterPriceMin]);
@@ -65,7 +71,12 @@ const StorePage = () => {
             <ButtonClient title="Lọc" />
           </div>
         </div>
-        <div className="mt-2 lg:col-span-9 col-span-full">
+        <div
+          className={clsx(
+            "mt-2 lg:col-span-9 col-span-full transition-all duration-300 ease-in-out transform",
+            showAnimation ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          )}
+        >
           {typeList === "grid" ? <ProductGrid /> : <ProductList />}
         </div>
       </div>
