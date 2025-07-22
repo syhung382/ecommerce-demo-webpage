@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MapComponent from "../components/other/MapComponent";
 import CheckoutContact from "../modules/checkout/CheckoutContact";
 import CheckoutSuccess from "../modules/checkout/CheckoutSuccess";
@@ -22,6 +22,10 @@ const Checkout = () => {
   const handleSetSuccess = (value: boolean) => {
     setIsSuccess(value);
   };
+
+  useEffect(() => {
+    document.title = "Thanh toán";
+  }, []);
 
   return (
     <>

@@ -66,6 +66,31 @@ export interface LoginReq {
   password: string;
 }
 
+export interface RegisterReq {
+  email: string;
+  fullName?: string;
+  userName: string;
+  password: string;
+  gender: number;
+  codeInvite?: string;
+}
+
+export interface UserFilter extends typeSortUtils {
+  fullName: string | null;
+  status: number | null;
+}
+export interface UserReq {
+  id: number | null;
+  email: string;
+  fullName: string;
+  userName: string;
+  password: string;
+  avatar: string | null;
+  gender: number;
+  role: number;
+  roleAdmin: number | null;
+}
+
 //tag
 export interface TagOfProduct
   extends authorUtils,
@@ -117,21 +142,4 @@ export interface ProductFilter extends typeSortUtils {
   startPrice: number | null;
   endPrice: number | null;
   status: number | null;
-}
-
-//user
-export interface UserFilter extends typeSortUtils {
-  fullName: string | null;
-  status: number | null;
-}
-export interface UserReq {
-  id: number | null;
-  email: string;
-  fullName: string;
-  userName: string;
-  password: string;
-  avatar: string | null;
-  gender: number;
-  role: number;
-  roleAdmin: number | null;
 }

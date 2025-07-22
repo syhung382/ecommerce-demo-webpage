@@ -12,7 +12,7 @@ A simple and responsive ecommerce demo website built with **React** and **Tailwi
 
 - ✅ User Authentication (Login, Logout)
 - ✅ Client:
-  - UI: Home, Product, ProductDetail, 404, Cart, Checkout
+  - UI: Home, Product, ProductDetail, 404, Cart, Checkout, Register
   - API connect: Login page
 - ✅ Admin Panel: Product and User Management
 - ✅ Responsive & Mobile-Friendly UI

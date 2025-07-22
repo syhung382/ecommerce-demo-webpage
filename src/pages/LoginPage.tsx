@@ -9,10 +9,11 @@ import type { LoginReq } from "../utils/requestUtils";
 import { useAppDispatch, useAppSelector } from "../hooks/hook";
 import { handleLoginAsync } from "../api/handle/handles";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { IconRequired } from "../components/icons";
+import { clientSiderBarMenuPath } from "../utils/constants";
 
 const schema = yup.object({
   username: yup
@@ -56,7 +57,7 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    document.title = "Ecommerce | Đăng nhập";
+    document.title = "Đăng nhập";
   }, []);
 
   useEffect(() => {
@@ -115,9 +116,25 @@ const LoginPage = () => {
           ></InputPassword>
         </Field>
         <Field>
+          <span className="text-sm font-semibold text-pink-600 cursor-pointer">
+            Quên mật khẩu?
+          </span>
+        </Field>
+        <Field>
           <Button disabled={isLoading} isLoading={isLoading}>
             Đăng nhập
           </Button>
+        </Field>
+        <Field>
+          <p className="text-center">
+            Bạn chưa có tài khoản?{" "}
+            <Link
+              to={`/${clientSiderBarMenuPath.Register}`}
+              className="font-semibold text-pink-600 cursor-pointer"
+            >
+              Đăng ký ngay
+            </Link>
+          </p>
         </Field>
       </form>
     </div>

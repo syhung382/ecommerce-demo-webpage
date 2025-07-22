@@ -48,7 +48,7 @@ const StorePage = () => {
   useEffect(() => {}, [filterPriceMax, filterPriceMin]);
 
   useEffect(() => {
-    document.title = "Cửa hàng";
+    document.title = "Giỏ hàng";
   }, []);
   return (
     <>
