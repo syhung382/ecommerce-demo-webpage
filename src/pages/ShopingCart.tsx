@@ -4,6 +4,7 @@ import { clientSiderBarMenuPath } from "../utils/constants";
 import type { MapItemProps } from "../utils/interface";
 import CartDesktop from "../modules/checkout/CartDesktop";
 import CartMobile from "../modules/checkout/CartMobile";
+import { useEffect } from "react";
 
 const mapList: MapItemProps[] = [
   {
@@ -17,6 +18,9 @@ const mapList: MapItemProps[] = [
 ];
 
 const ShopingCart = () => {
+  useEffect(() => {
+    document.title = "Giỏ hàng";
+  }, []);
   return (
     <>
       <MapComponent title="Giỏ hàng" mapItem={mapList} />

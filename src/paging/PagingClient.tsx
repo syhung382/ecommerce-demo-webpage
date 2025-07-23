@@ -18,7 +18,9 @@ const PagingClient = ({ page, totalPage, handleChangePage }: PagingProps) => {
             ) : (
               <div
                 className={`w-11 text-center py-2 rounded-md text-sm font-medium border ${
-                  item === page ? "bg-blue-200 text-blue-700" : "cursor-pointer"
+                  item === page
+                    ? "text-white bg-pink-600"
+                    : "cursor-pointer hover:text-pink-500"
                 }`}
                 onClick={() => handleChangePage(item)}
               >

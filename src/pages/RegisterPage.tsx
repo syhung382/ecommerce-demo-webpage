@@ -73,7 +73,7 @@ const RegisterPage = () => {
   }, []);
 
   return (
-    <div className="my-10 lg:my-20 max-w-[800px] w-full mx-auto border border-gray-200 bg-white dark:bg-gray-800 rounded-xl p-5 items-center justify-center flex-col flex">
+    <div className="my-10 mx-auto lg:my-20 max-w-[90%] lg:max-w-[800px] w-full border border-gray-200 bg-white dark:bg-gray-800 rounded-xl p-5 items-center justify-center flex-col flex">
       <h1 className="font-bold text-2xl">Đăng ký</h1>
       <span className="text-blue-500 text-sm">Đăng ký tài khoản mới</span>
       <form

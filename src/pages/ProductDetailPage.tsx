@@ -111,7 +111,7 @@ const ProductDetailPage = () => {
                 <IconTwitterRound
                   width={20}
                   height={20}
-                  className="text-blue-800 cursor-pointer"
+                  className="text-green-600 cursor-pointer"
                 />
                 <IconInstagramRound
                   width={20}
