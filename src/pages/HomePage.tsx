@@ -22,6 +22,7 @@ const HomePage = () => {
       <ProductFeature />
       <ProductLatest />
       <Offer />
+
       <ProductTrending />
       <Discount />
       <ProductSale />

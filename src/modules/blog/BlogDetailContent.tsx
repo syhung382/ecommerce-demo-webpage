@@ -140,7 +140,7 @@ const BlogDetailContent = () => {
 
         {/* comment form */}
         <div className="w-full flex flex-col gap-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <input
               type="text"
               placeholder="Tên của bạn *"
@@ -158,7 +158,7 @@ const BlogDetailContent = () => {
             className="border border-gray-300 text-blue-950 dark:text-gray-300 placeholder:text-gray-500 rounded-md px-3 py-2 h-32 resize-none shadow-sm hover:border-blue-300 focus:border-blue-400 outline-none transition"
           ></textarea>
           <button
-            className="w-full py-1 text-center text-sm font-semibold text-white bg-pink-500 hover:bg-pink-600 rounded-md transform cursor-pointer"
+            className="w-full py-2 text-center text-sm font-semibold text-white bg-pink-500 hover:bg-pink-600 rounded-md transform cursor-pointer"
             type="button"
           >
             Bình luận

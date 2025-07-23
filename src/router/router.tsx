@@ -6,6 +6,8 @@ import {
 } from "../utils/constants";
 import BlogPage from "../pages/BlogPage";
 import BlogDetail from "../pages/BlogDetail";
+import AboutUs from "../pages/AboutUs";
+import Contact from "../pages/Contact";
 
 const ClientLayout = lazy(() => import("../components/layouts/ClientLayout"));
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -75,6 +77,8 @@ export function setupRounter() {
           path: `${clientSiderBarMenuPath.Blog}/:slug`,
           element: <BlogDetail />,
         },
+        { path: clientSiderBarMenuPath.About, element: <AboutUs /> },
+        { path: clientSiderBarMenuPath.Contact, element: <Contact /> },
         { path: "*", element: <PageNotFound /> },
       ],
     },

@@ -26,21 +26,19 @@ const BlogDetail = () => {
   }, []);
 
   return (
-    <div>
-      <>
-        <MapComponent title="Blog Detail" mapItem={mapList} />
+    <>
+      <MapComponent title="Blog Detail" mapItem={mapList} />
 
-        <div className="my-10 lg:my-20 px-10 lg:px-30 xl:px-60 grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="col-span-full lg:col-span-3 grid grid-cols-1 gap-6">
-            <BlogDetailContent />
-          </div>
-
-          <div className="w-full flex flex-col gap-6">
-            <BlogSiderBar />
-          </div>
+      <div className="my-10 lg:my-20 px-10 lg:px-30 xl:px-60 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="col-span-full lg:col-span-3 grid grid-cols-1 gap-6">
+          <BlogDetailContent />
         </div>
-      </>
-    </div>
+
+        <div className="w-full flex flex-col gap-6">
+          <BlogSiderBar />
+        </div>
+      </div>
+    </>
   );
 };
 

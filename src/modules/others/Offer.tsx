@@ -1,6 +1,6 @@
 const Offer = () => {
   return (
-    <div className="mt-20 w-full max-w-[99vw] overflow-x-hidden grid grid-cols-2 lg:grid-cols-4 gap-4 px-10 lg:px-30 xl:px-60">
+    <div className="mt-20 w-full max-w-[99vw] grid grid-cols-2 lg:grid-cols-4 gap-4 px-10 lg:px-30 xl:px-60">
       <div className="items-center text-center w-full flex flex-col px-6 py-4">
         <img src="/images/delivery.png" alt="delivery" className="w-16 h-16" />
         <h3 className="mt-5 font-semibold text-[16px] text-blue-950 dark:text-blue-700">
